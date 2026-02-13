@@ -35,8 +35,20 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        size = len(nums)
+        prods = [1]*size
+
+        prod = nums[0]
+        for i in range(1,size):
+            prods[i] *= prod
+            prod *= nums[i]
+        
+        prod = nums[size-1]
+        for i in reversed(range(0, size-1)):
+            prods[i] *= prod
+            prod *= nums[i]
+
+        return prods
 
 
 # Example usage (for testing locally)
