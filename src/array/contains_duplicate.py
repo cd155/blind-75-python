@@ -32,8 +32,13 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        num_to_int = {}
+        for num in nums:
+            if num in num_to_int:
+                return True
+            else:
+                num_to_int[num] = 1
+        return False
 
 
 # Example usage (for testing locally)
