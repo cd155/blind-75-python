@@ -34,8 +34,13 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        lowest, m_p = prices[0], 0
+        for p in prices[1:]:
+            if p < lowest:
+                lowest = p
+            else:
+                m_p = max(m_p, p-lowest)
+        return m_p
 
 
 # Example usage (for testing locally)
