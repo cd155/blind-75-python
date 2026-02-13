@@ -35,8 +35,12 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        num_to_index = {}
+        for i, num in enumerate(nums):
+            if num not in num_to_index:
+                num_to_index[target - num] = i
+            else:
+                return [num_to_index[num], i]
 
 
 # Example usage (for testing locally)
