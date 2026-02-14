@@ -42,8 +42,14 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(h)
         """
-        # TODO: Implement solution
-        pass
+        if p is None and q is None:
+            return True
+        elif p is not None and q is not None:
+            return p.val == q.val and \
+               self.isSameTree(p.left, q.left) and \
+               self.isSameTree(p.right, q.right)
+        else:
+            return False
 
 
 # Example usage (for testing locally)
