@@ -39,8 +39,22 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(n)
         """
-        # TODO: Implement solution
-        pass
+        que = [[root]]
+        result = []
+        while que:
+            nodes = que.pop(0)
+            level = []
+            new_nodes = []
+            for n in nodes:
+                if n:
+                    level.append(n.val)
+                    new_nodes.append(n.left)
+                    new_nodes.append(n.right)
+            if level:
+                result.append(level)
+            if new_nodes:
+                que.append(new_nodes)
+        return result
 
 
 # Example usage (for testing locally)
