@@ -46,16 +46,22 @@ class Solution:
         Time Complexity: O(h) where h is height
         Space Complexity: O(1) iterative, O(h) recursive
         """
-        # TODO: Implement solution
-        pass
+        l = min(p.val, q.val)
+        h = max(p.val, q.val)
+        if root.val >= l and root.val <= h:
+            return root
+        elif root.val < l:
+            return self.lowestCommonAncestor(root.right, p, q)
+        elif root.val > h:
+            return self.lowestCommonAncestor(root.left, p, q)
 
 
 # Example usage (for testing locally)
 if __name__ == "__main__":
     solution = Solution()
+    root = TreeNode(6, TreeNode(2, TreeNode(0), TreeNode(4, TreeNode(3), TreeNode(5))), TreeNode(8, TreeNode(7), TreeNode(9)))
 
     # Test case 1
-    root = TreeNode(6, TreeNode(2, TreeNode(0), TreeNode(4, TreeNode(3), TreeNode(5))), TreeNode(8, TreeNode(7), TreeNode(9)))
     p = root.left  # 2
     q = root.right  # 8
     result = solution.lowestCommonAncestor(root, p, q)
