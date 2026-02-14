@@ -41,8 +41,10 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(h) where h is height
         """
-        # TODO: Implement solution
-        pass
+        if root is None:
+            return 0
+
+        return max(self.maxDepth(root.left)+1, self.maxDepth(root.right)+1)
 
 
 # Example usage (for testing locally)
