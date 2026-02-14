@@ -43,9 +43,36 @@ class Solution:
 
         Time Complexity: O(m * n) where m, n are tree sizes
         Space Complexity: O(h)
+        """            
+        if self.isSameTree(root, subRoot):
+            return True
+        elif root is None and subRoot is not None:
+            return False
+        
+        return self.isSubtree(root.left, subRoot) or self.isSubtree(root.right, subRoot)
+
+    def isSameTree(self, p, q):
         """
-        # TODO: Implement solution
-        pass
+        Check if two binary trees are identical.
+
+        Args:
+            p: TreeNode - root of first tree
+            q: TreeNode - root of second tree
+
+        Returns:
+            bool - true if trees are same
+
+        Time Complexity: O(n)
+        Space Complexity: O(h)
+        """
+        if p is None and q is None:
+            return True
+        elif p is not None and q is not None:
+            return p.val == q.val and \
+               self.isSameTree(p.left, q.left) and \
+               self.isSameTree(p.right, q.right)
+        else:
+            return False
 
 
 # Example usage (for testing locally)
@@ -60,6 +87,6 @@ if __name__ == "__main__":
 
     # Test case 2
     root = TreeNode(3, TreeNode(4, TreeNode(1), TreeNode(2)), TreeNode(5))
-    subRoot = TreeNode(4, TreeNode(1), TreeNode(2))
+    subRoot = TreeNode(4, TreeNode(1), TreeNode(0))
     result = solution.isSubtree(root, subRoot)
     print(f"Test 2: {result}")
