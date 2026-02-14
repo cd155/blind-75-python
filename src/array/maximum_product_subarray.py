@@ -33,8 +33,14 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        global_max = nums[0]
+        max_n, min_n = nums[0], nums[0]
+        for num in nums[1:]:
+            temp_max_n = max(num, max_n*num, min_n*num)
+            min_n = min(num, min_n*num, max_n*num)
+            max_n = temp_max_n
+            global_max = max(global_max, max_n)
+        return global_max
 
 
 # Example usage (for testing locally)
@@ -48,3 +54,7 @@ if __name__ == "__main__":
     # Test case 2
     result = solution.maxProduct([-2, 0, -1])
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.maxProduct([-4, -3, -2])
+    print(f"Test 3: {result}")
