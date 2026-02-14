@@ -32,3 +32,7 @@ class TestMaximumProductSubarray:
     def test_example_2(self):
         """Test case from example 2"""
         assert self.solution.maxProduct([-2, 0, -1]) == 0
+
+    def test_example_3(self):
+        """Test case from example 3"""
+        assert self.solution.maxProduct([-4, -3, -2]) == 12
