@@ -38,8 +38,24 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(h)
         """
-        # TODO: Implement solution
-        pass
+        if root is None:
+            return
+
+        buffer = root.left
+        root.left = root.right
+        root.right = buffer
+
+        self.invertTree(root.left)
+        self.invertTree(root.right)
+
+        return root
+
+    def pretty_print_node(self, root):
+        if root is None:
+            return
+        print(root.val)
+        self.pretty_print_node(root.left)
+        self.pretty_print_node(root.right)
 
 
 # Example usage (for testing locally)
@@ -49,9 +65,9 @@ if __name__ == "__main__":
     # Test case 1
     root = TreeNode(4, TreeNode(2, TreeNode(1), TreeNode(3)), TreeNode(7, TreeNode(6), TreeNode(9)))
     result = solution.invertTree(root)
-    print(f"Test 1: {result.val if result else None}")
+    solution.pretty_print_node(result)
 
     # Test case 2
     root = TreeNode(2, TreeNode(1), TreeNode(3))
     result = solution.invertTree(root)
-    print(f"Test 2: {result.val if result else None}")
+    solution.pretty_print_node(result)
