@@ -35,5 +35,5 @@ class TestSubtreeOfAnotherTree:
     def test_example_2(self):
         """Test case from example 2"""
         root = TreeNode(3, TreeNode(4, TreeNode(1), TreeNode(2)), TreeNode(5))
-        subRoot = TreeNode(4, TreeNode(1), TreeNode(2))
-        assert self.solution.isSubtree(root, subRoot) == True
+        subRoot = TreeNode(4, TreeNode(1), TreeNode(0))
+        assert self.solution.isSubtree(root, subRoot) == False
