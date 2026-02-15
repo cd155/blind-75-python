@@ -43,8 +43,48 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(h)
         """
-        # TODO: Implement solution
-        pass
+        bst = self.treeToArray(root)
+        if not bst:
+            return True
+        
+        for i in range(1,len(bst)):
+            if bst[i-1] > bst[i]:
+                return False
+        return True
+
+    def treeToArray(self, root):
+        if root is None:
+            return []
+        return self.treeToArray(root.left) + \
+               [root.val] + \
+               self.treeToArray(root.right)
+    
+    def treeToArrayAlter(self, root):
+        bst_array = []
+
+        def traverse(node):
+            if node is None:
+                return            
+            traverse(node.left)
+            bst_array.append(node.val)
+            traverse(node.right)
+        
+        traverse(root)
+        return bst_array
+
+    def isValidBSTBetter(self, root):
+
+        def validate(root, low, high):
+            if root is None:
+                return True
+            if root.val <= low or root.val >= high:
+                return False
+
+            # go left and go right
+            return validate(root.left, low, root.val) and \
+                   validate(root.right, root.val, high)            
+
+        return validate(root, float('-inf'), float('inf'))
 
 
 # Example usage (for testing locally)
@@ -53,10 +93,10 @@ if __name__ == "__main__":
 
     # Test case 1
     root = TreeNode(2, TreeNode(1), TreeNode(3))
-    result = solution.isValidBST(root)
+    result = solution.isValidBSTBetter(root)
     print(f"Test 1: {result}")
 
     # Test case 2
     root = TreeNode(5, TreeNode(1), TreeNode(4, TreeNode(3), TreeNode(6)))
-    result = solution.isValidBST(root)
+    result = solution.isValidBSTBetter(root)
     print(f"Test 2: {result}")
