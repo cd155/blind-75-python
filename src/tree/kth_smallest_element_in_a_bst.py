@@ -28,6 +28,7 @@ class TreeNode:
 
 class Solution:
     def kthSmallest(self, root, k):
+        self.k = k
         """
         Find the kth smallest element in a BST.
 
@@ -41,9 +42,22 @@ class Solution:
         Time Complexity: O(h + k) where h is height
         Space Complexity: O(h)
         """
-        # TODO: Implement solution
-        pass
+        def traverse(root):
+            if root is None:
+                return
 
+            left_result = traverse(root.left)            
+            # Check "is not None" so that 0 is accepted as a valid answer            
+            if left_result is not None:
+                return left_result
+
+            self.k -= 1
+            if self.k == 0:            
+                return root.val
+
+            return traverse(root.right)            
+
+        return traverse(root)
 
 # Example usage (for testing locally)
 if __name__ == "__main__":
