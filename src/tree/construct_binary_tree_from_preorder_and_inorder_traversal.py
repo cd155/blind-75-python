@@ -42,8 +42,23 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(n)
         """
-        # TODO: Implement solution
-        pass
+        self.pre_index = 0
+
+        in_val_to_index = {}
+        for i, val in enumerate(inorder):
+            in_val_to_index[val] = i
+
+        def dfs_build(l, h):
+            if l>=h:
+                return None
+            node_val = preorder[self.pre_index]
+            node = TreeNode(node_val)
+            self.pre_index += 1
+            node.left = dfs_build(l, in_val_to_index[node_val])
+            node.right = dfs_build(in_val_to_index[node_val]+1, h)
+            return node
+
+        return dfs_build(0, len(inorder))
 
 
 # Example usage (for testing locally)
