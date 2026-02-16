@@ -29,15 +29,14 @@ class Solution:
         Returns:
             True if duplicates exist, False otherwise
 
-        Time Complexity: O(?)
-        Space Complexity: O(?)
+        Time Complexity: O(n)
+        Space Complexity: O(n)
         """
-        num_to_int = {}
+        seen = set()
         for num in nums:
-            if num in num_to_int:
+            if num in seen:
                 return True
-            else:
-                num_to_int[num] = 1
+            seen.add(num)
         return False
 
 
