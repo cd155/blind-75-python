@@ -54,8 +54,8 @@ class Solution:
             node_val = preorder[self.pre_index]
             node = TreeNode(node_val)
             self.pre_index += 1
-            node.left = dfs_build (inorder_arr, l, in_val_to_index[node_val])
-            node.right = dfs_build (inorder_arr, in_val_to_index[node_val]+1, h)
+            node.left = dfs_build(inorder_arr, l, in_val_to_index[node_val])
+            node.right = dfs_build(inorder_arr, in_val_to_index[node_val]+1, h)
             return node
 
         return dfs_build(inorder, 0, len(preorder))
