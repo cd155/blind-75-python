@@ -41,10 +41,7 @@ class Solution:
         if root is None:
             return
 
-        buffer = root.left
-        root.left = root.right
-        root.right = buffer
-
+        root.left, root.right = root.right, root.left
         self.invertTree(root.left)
         self.invertTree(root.right)
 
