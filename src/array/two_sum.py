@@ -32,15 +32,15 @@ class Solution:
         Returns:
             List of two indices
 
-        Time Complexity: O(?)
-        Space Complexity: O(?)
+        Time Complexity: O(n)
+        Space Complexity: O(n)
         """
         num_to_index = {}
         for i, num in enumerate(nums):
-            if num not in num_to_index:
-                num_to_index[target - num] = i
-            else:
+            complement = target - num            
+            if complement in num_to_index:
                 return [num_to_index[num], i]
+            num_to_index[complement] = i                
 
 
 # Example usage (for testing locally)
