@@ -29,7 +29,6 @@ class TreeNode:
 
 class Solution:
     def buildTree(self, preorder, inorder):
-        self.pre_index = 0
         """
         Build binary tree from preorder and inorder traversals.
 
@@ -43,23 +42,23 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(n)
         """
+        self.pre_index = 0
+
         in_val_to_index = {}
         for i, val in enumerate(inorder):
             in_val_to_index[val] = i
 
-        def dfs_build (root, l, h):
-            myroot = root[l:h]
-            if not myroot:
+        def dfs_build(inorder_arr, l, h):
+            if l>=h:
                 return None
-            else:
-                node_val = preorder[self.pre_index]
-                node = TreeNode(node_val)
-                self.pre_index += 1
-                node.left = dfs_build (root, l, in_val_to_index[node_val])
-                node.right = dfs_build (root, in_val_to_index[node_val]+1, h)
+            node_val = preorder[self.pre_index]
+            node = TreeNode(node_val)
+            self.pre_index += 1
+            node.left = dfs_build (inorder_arr, l, in_val_to_index[node_val])
+            node.right = dfs_build (inorder_arr, in_val_to_index[node_val]+1, h)
             return node
 
-        return dfs_build (inorder, 0, len(preorder))
+        return dfs_build(inorder, 0, len(preorder))
 
 
 # Example usage (for testing locally)
