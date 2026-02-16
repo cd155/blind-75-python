@@ -58,7 +58,7 @@ class Solution:
             node.right = dfs_build(in_val_to_index[node_val]+1, h)
             return node
 
-        return dfs_build(0, len(preorder))
+        return dfs_build(0, len(inorder))
 
 
 # Example usage (for testing locally)
