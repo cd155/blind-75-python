@@ -32,7 +32,7 @@ class Solution:
             Maximum profit
 
         Time Complexity: O(n)
-        Space Complexity: O(n)
+        Space Complexity: O(1)
         """
         lowest, max_profit = prices[0], 0
         for price in prices[1:]:

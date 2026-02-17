@@ -37,10 +37,10 @@ class Solution:
         """
         num_to_index = {}
         for i, num in enumerate(nums):
-            complement = target - num            
+            complement = target - num
             if complement in num_to_index:
-                return [num_to_index[num], i]
-            num_to_index[complement] = i                
+                return [num_to_index[complement], i]
+            num_to_index[num] = i
 
 
 # Example usage (for testing locally)

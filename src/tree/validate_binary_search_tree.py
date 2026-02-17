@@ -84,7 +84,7 @@ class Solution:
 
             # go left and go right
             return (
-                validate(root.left, low, root.val) 
+                validate(root.left, low, root.val)
                 and validate(root.right, root.val, high)
             )
 
