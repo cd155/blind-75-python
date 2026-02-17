@@ -48,8 +48,10 @@ class Solution:
             for n in nodes:
                 if n:
                     level.append(n.val)
-                    new_nodes.append(n.left)
-                    new_nodes.append(n.right)
+                    if n.left:
+                        new_nodes.append(n.left)
+                    if n.right:
+                        new_nodes.append(n.right)
             if level:
                 result.append(level)
             if new_nodes:
