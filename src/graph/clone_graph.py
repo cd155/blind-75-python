@@ -27,7 +27,7 @@ class Node:
 
 
 class Solution:
-    def cloneGraph(self, node):
+    def cloneGraph(self, source):
         """
         Clone an undirected graph.
 
@@ -40,8 +40,25 @@ class Solution:
         Time Complexity: O(N + E) where N is number of nodes and E is edges
         Space Complexity: O(N) for the hashmap
         """
-        # TODO: Implement solution
-        pass
+        if not source:
+            return
+
+        visited = {}
+
+        def dfs(node):
+            if node.val in visited:
+                return visited[node.val]
+
+            new_node = Node(node.val)
+            new_neighbors = []
+            visited[node.val] = new_node
+            for neighbor in node.neighbors:
+                new_neighbors.append(dfs(neighbor))
+            new_node.neighbors = new_neighbors
+
+            return new_node
+
+        return dfs(source)
 
 
 # Example usage (for testing locally)
