@@ -31,16 +31,16 @@ class Solution:
         Returns:
             Maximum profit
 
-        Time Complexity: O(?)
-        Space Complexity: O(?)
+        Time Complexity: O(n)
+        Space Complexity: O(1)
         """
-        lowest, m_p = prices[0], 0
-        for p in prices[1:]:
-            if p < lowest:
-                lowest = p
+        lowest, max_profit = prices[0], 0
+        for price in prices[1:]:
+            if price < lowest:
+                lowest = price
             else:
-                m_p = max(m_p, p-lowest)
-        return m_p
+                max_profit = max(max_profit, price-lowest)
+        return max_profit
 
 
 # Example usage (for testing locally)

@@ -55,9 +55,11 @@ class Solution:
     def treeToArray(self, root):
         if root is None:
             return []
-        return self.treeToArray(root.left) + \
-               [root.val] + \
-               self.treeToArray(root.right)
+        return (
+            self.treeToArray(root.left)
+            + [root.val]
+            + self.treeToArray(root.right)
+        )
     
     def treeToArrayAlter(self, root):
         bst_array = []
@@ -81,8 +83,10 @@ class Solution:
                 return False
 
             # go left and go right
-            return validate(root.left, low, root.val) and \
-                   validate(root.right, root.val, high)            
+            return (
+                validate(root.left, low, root.val)
+                and validate(root.right, root.val, high)
+            )
 
         return validate(root, float('-inf'), float('inf'))
 

@@ -46,13 +46,13 @@ class Solution:
         Time Complexity: O(h) where h is height
         Space Complexity: O(1) iterative, O(h) recursive
         """
-        l = min(p.val, q.val)
-        h = max(p.val, q.val)
-        if root.val >= l and root.val <= h:
+        min_val = min(p.val, q.val)
+        max_val = max(p.val, q.val)
+        if root.val >= min_val and root.val <= max_val:
             return root
-        elif root.val < l:
+        elif root.val < min_val:
             return self.lowestCommonAncestor(root.right, p, q)
-        elif root.val > h:
+        else: # root.val > max_val
             return self.lowestCommonAncestor(root.left, p, q)
 
 
