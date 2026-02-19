@@ -36,8 +36,30 @@ class Solution:
         Time Complexity: O(m * n)
         Space Complexity: O(m * n) for recursion stack
         """
-        # TODO: Implement solution
-        pass
+        row_num = len(grid)
+        col_num = len(grid[0])
+        visit_record = []
+        num_island = 0
+
+        def dfs(i, j):
+            if (i,j) not in visit_record and grid[i][j] == "1":
+                visit_record.append((i, j))
+                if 0<=i-1<row_num:
+                    dfs(i-1, j)
+                if 0<=i+1<row_num:
+                    dfs(i+1, j)
+                if 0<=j-1<col_num:
+                    dfs(i, j-1)
+                if 0<=j+1<col_num:
+                    dfs(i, j+1)
+
+        for i in range(0, len(grid)):
+            for j in range(0, len(grid[0])):
+                if (i,j) not in visit_record and grid[i][j] == "1":
+                    num_island += 1
+                    dfs(i, j)
+
+        return num_island
 
 
 # Example usage (for testing locally)
