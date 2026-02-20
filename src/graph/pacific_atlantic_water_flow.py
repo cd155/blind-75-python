@@ -39,8 +39,38 @@ class Solution:
         Time Complexity: O(m * n)
         Space Complexity: O(m * n)
         """
-        # TODO: Implement solution
-        pass
+        good_islands = []
+        num_row = len(heights)
+        num_column = len(heights[0])
+        depth = 0
+
+        def canIslandGoBoth(i,j, depth):
+            if depth > 5: 
+                breakpoint()
+            depth += 1
+
+            print(i,j)
+            if (i,j) == (0, num_column-1) or (i,j) == (num_row-1, 0):
+                return True
+            
+            canGoBoth = False
+            if i-1>=0 and heights[i-1][j] <= heights[i][j]:
+                canGoBoth = canIslandGoBoth(i-1,j, depth)
+            if not canGoBoth and i+1<num_row and heights[i+1][j] <= heights[i][j]:
+                canGoBoth = canIslandGoBoth(i+1, j, depth)
+            if not canGoBoth and j-1>=0 and heights[i][j-1] <= heights[i][j]:
+                canGoBoth = canIslandGoBoth(i, j-1, depth)
+            if not canGoBoth and j+1<num_column and heights[i][j+1] <= heights[i][j]:
+                canGoBoth = canIslandGoBoth(i, j+1, depth)
+
+            return canGoBoth
+
+        for i in range(0, num_row):
+            for j in range(0, num_column):
+                if canIslandGoBoth(i, j, depth):
+                    good_islands.append((i,j))
+        
+        return good_islands
 
 
 # Example usage (for testing locally)
