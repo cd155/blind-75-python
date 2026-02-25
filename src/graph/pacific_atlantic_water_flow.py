@@ -39,38 +39,97 @@ class Solution:
         Time Complexity: O(m * n)
         Space Complexity: O(m * n)
         """
-        good_islands = []
         num_row = len(heights)
         num_column = len(heights[0])
-        depth = 0
+        heights_copy = [[False for _ in range(0, num_column)] for _ in range(0, num_row)]
+        path = set()
+        pacific_island = set()
+        atlantic_island = set()
 
-        def canIslandGoBoth(i,j, depth):
-            if depth > 5: 
-                breakpoint()
-            depth += 1
+        def isConnectPacific(i, j, path):
+            if (i,j) in pacific_island:
+                return True
 
-            print(i,j)
-            if (i,j) == (0, num_column-1) or (i,j) == (num_row-1, 0):
+            if(i,j) in path:
+                return False
+            path.add((i,j))
+
+            if i == 0 or j == 0:
+                pacific_island.add((i,j))
                 return True
             
-            canGoBoth = False
-            if i-1>=0 and heights[i-1][j] <= heights[i][j]:
-                canGoBoth = canIslandGoBoth(i-1,j, depth)
-            if not canGoBoth and i+1<num_row and heights[i+1][j] <= heights[i][j]:
-                canGoBoth = canIslandGoBoth(i+1, j, depth)
-            if not canGoBoth and j-1>=0 and heights[i][j-1] <= heights[i][j]:
-                canGoBoth = canIslandGoBoth(i, j-1, depth)
-            if not canGoBoth and j+1<num_column and heights[i][j+1] <= heights[i][j]:
-                canGoBoth = canIslandGoBoth(i, j+1, depth)
+            if i > 0 and heights[i][j] >= heights[i-1][j]:
+                if isConnectPacific(i-1, j, path):
+                    pacific_island.add((i-1,j))
+                    return True
+            if i < num_row-1 and heights[i][j] >= heights[i+1][j]:
+                if isConnectPacific(i+1, j, path,):
+                    pacific_island.add((i+1,j))
+                    return True
+            if j > 0 and heights[i][j] >= heights[i][j-1]:
+                if isConnectPacific(i, j-1, path):
+                    pacific_island.add((i,j-1))
+                    return True
+            if j < num_column-1 and heights[i][j] >= heights[i][j+1]:
+                if isConnectPacific(i, j+1, path):
+                    pacific_island.add((i,j+1))
+                    return True
 
-            return canGoBoth
+            return False
 
+        def isConnectAtlantic(i, j, path):
+            if (i,j) in atlantic_island:
+                return True
+    
+            if(i,j) in path:
+                return False
+            path.add((i,j))
+        
+            if i == num_row-1 or j == num_column-1:
+                return True
+            
+            if i > 0 and heights[i][j] >= heights[i-1][j]:
+                if isConnectAtlantic(i-1, j, path):
+                    atlantic_island.add((i-1,j))
+                    return True
+            if i < num_row-1 and heights[i][j] >= heights[i+1][j]:
+                if isConnectAtlantic(i+1, j, path):
+                    atlantic_island.add((i+1,j))
+                    return True
+            if j > 0 and heights[i][j] >= heights[i][j-1]:
+                if isConnectAtlantic(i, j-1, path):
+                    atlantic_island.add((i,j-1))
+                    return True
+            if j < num_column-1 and heights[i][j] >= heights[i][j+1]:
+                if isConnectAtlantic(i, j+1, path):
+                    atlantic_island.add((i,j+1))
+                    return True
+
+            return False
+
+        # can island connect pacific
         for i in range(0, num_row):
             for j in range(0, num_column):
-                if canIslandGoBoth(i, j, depth):
-                    good_islands.append((i,j))
+                path.clear()
+                if (i,j) in pacific_island or isConnectPacific(i,j,path):
+                      heights_copy[i][j] = True 
+
+        # can island connect atlantic
+        for i in range(0, num_row):
+            for j in range(0, num_column):
+                path.clear()
+                if (i,j) in atlantic_island or (isConnectAtlantic(i,j, path) and heights_copy[i][j]):
+                    heights_copy[i][j] = True 
+                else:
+                    heights_copy[i][j] = False 
         
-        return good_islands
+        good_island = []
+        for i in range(0, num_row):
+            for j in range(0, num_column):
+                if heights_copy[i][j]:
+                    good_island.append([i, j])
+
+        return good_island
 
 
 # Example usage (for testing locally)
@@ -84,3 +143,7 @@ if __name__ == "__main__":
     # Test case 2
     result = solution.pacificAtlantic([[1]])
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.pacificAtlantic([[4,4,4,4], [4,2,2,4], [4,2,2,4], [4,4,4,4]])
+    print(f"Test 3: {result}")
