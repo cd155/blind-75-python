@@ -60,19 +60,19 @@ class Solution:
             
             if i > 0 and heights[i][j] >= heights[i-1][j]:
                 if isConnectPacific(i-1, j, path):
-                    pacific_island.add((i-1,j))
+                    pacific_island.add((i,j))
                     return True
             if i < num_row-1 and heights[i][j] >= heights[i+1][j]:
                 if isConnectPacific(i+1, j, path,):
-                    pacific_island.add((i+1,j))
+                    pacific_island.add((i,j))
                     return True
             if j > 0 and heights[i][j] >= heights[i][j-1]:
                 if isConnectPacific(i, j-1, path):
-                    pacific_island.add((i,j-1))
+                    pacific_island.add((i,j))
                     return True
             if j < num_column-1 and heights[i][j] >= heights[i][j+1]:
                 if isConnectPacific(i, j+1, path):
-                    pacific_island.add((i,j+1))
+                    pacific_island.add((i,j))
                     return True
 
             return False
@@ -86,23 +86,24 @@ class Solution:
             path.add((i,j))
         
             if i == num_row-1 or j == num_column-1:
+                atlantic_island.add((i,j))
                 return True
             
             if i > 0 and heights[i][j] >= heights[i-1][j]:
                 if isConnectAtlantic(i-1, j, path):
-                    atlantic_island.add((i-1,j))
+                    atlantic_island.add((i,j))
                     return True
             if i < num_row-1 and heights[i][j] >= heights[i+1][j]:
                 if isConnectAtlantic(i+1, j, path):
-                    atlantic_island.add((i+1,j))
+                    atlantic_island.add((i,j))
                     return True
             if j > 0 and heights[i][j] >= heights[i][j-1]:
                 if isConnectAtlantic(i, j-1, path):
-                    atlantic_island.add((i,j-1))
+                    atlantic_island.add((i,j))
                     return True
             if j < num_column-1 and heights[i][j] >= heights[i][j+1]:
                 if isConnectAtlantic(i, j+1, path):
-                    atlantic_island.add((i,j+1))
+                    atlantic_island.add((i,j))
                     return True
 
             return False
@@ -118,7 +119,7 @@ class Solution:
         for i in range(0, num_row):
             for j in range(0, num_column):
                 path.clear()
-                if (i,j) in atlantic_island or (isConnectAtlantic(i,j, path) and heights_copy[i][j]):
+                if ((i,j) in atlantic_island or (isConnectAtlantic(i,j, path))) and heights_copy[i][j]:
                     heights_copy[i][j] = True 
                 else:
                     heights_copy[i][j] = False 
