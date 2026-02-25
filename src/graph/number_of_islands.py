@@ -38,12 +38,12 @@ class Solution:
         """
         row_num = len(grid)
         col_num = len(grid[0])
-        visit_record = []
+        visit_record = set()
         num_island = 0
 
         def dfs(i, j):
             if (i,j) not in visit_record and grid[i][j] == "1":
-                visit_record.append((i, j))
+                visit_record.add((i, j))
                 if 0<=i-1<row_num:
                     dfs(i-1, j)
                 if 0<=i+1<row_num:
@@ -53,8 +53,8 @@ class Solution:
                 if 0<=j+1<col_num:
                     dfs(i, j+1)
 
-        for i in range(0, len(grid)):
-            for j in range(0, len(grid[0])):
+        for i in range(0, row_num):
+            for j in range(0, col_num):
                 if (i,j) not in visit_record and grid[i][j] == "1":
                     num_island += 1
                     dfs(i, j)
