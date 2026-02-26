@@ -26,6 +26,46 @@ Constraints:
 
 
 class Solution:
+    # Reverse Traversal or Multi-Source Traversal
+    def pacificAtlanticUphill(self, heights):
+        num_row = len(heights)
+        num_column = len(heights[0])
+        reach_pacific = set()
+        reach_atlantic = set()
+
+        def dfs(i, j, reach_islands):
+            reach_islands.add((i, j))
+            direction = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+            for di, dj in direction:
+                next_i, next_j = i + di, j + dj
+                if (0 <= next_i < num_row and 
+                    0 <= next_j < num_column and
+                    (next_i, next_j) not in reach_islands and 
+                    heights[i][j] <= heights[next_i][next_j]):
+                        dfs(next_i, next_j, reach_islands)
+
+        for i in range(0, num_row):
+            # ran pacific
+            dfs(i, 0, reach_pacific)
+
+            # ran atlantic
+            dfs(i, num_column-1, reach_atlantic)
+
+        for j in range(0, num_column):
+            # ran pacific
+            dfs(0, j, reach_pacific)
+
+            # ran atlantic
+            dfs(num_row-1, j, reach_atlantic)
+
+        good_islands = []
+        for (r, c) in reach_pacific:
+            if (r, c) in reach_atlantic:
+                good_islands.append([r, c])
+
+        return good_islands
+
+    # Single-Source Traversal
     def pacificAtlanticDownhill(self, heights):
         """
         Find cells where water can flow to both oceans.
@@ -137,14 +177,28 @@ class Solution:
 if __name__ == "__main__":
     solution = Solution()
 
-    # Test case 1
+    ## Downhill Test cases
+    # Test case 1 
     result = solution.pacificAtlanticDownhill([[1, 2, 2, 3, 5], [3, 2, 3, 4, 4], [2, 4, 5, 3, 1], [6, 7, 1, 4, 5], [5, 1, 1, 2, 4]])
-    print(f"Test 1: {result}")
+    print(f"Downhill Test 1: {result}")
 
     # Test case 2
     result = solution.pacificAtlanticDownhill([[1]])
-    print(f"Test 2: {result}")
+    print(f"Downhill Test 2: {result}")
 
     # Test case 3
     result = solution.pacificAtlanticDownhill([[4,4,4,4], [4,2,2,4], [4,2,2,4], [4,4,4,4]])
-    print(f"Test 3: {result}")
+    print(f"Downhill Test 3: {result}")
+
+    ## Uphill Test cases
+    # Test case 1 
+    result = solution.pacificAtlanticUphill([[1, 2, 2, 3, 5], [3, 2, 3, 4, 4], [2, 4, 5, 3, 1], [6, 7, 1, 4, 5], [5, 1, 1, 2, 4]])
+    print(f"Uphill Test 1: {result}")
+
+    # Test case 2
+    result = solution.pacificAtlanticUphill([[1]])
+    print(f"Uphill Test 2: {result}")
+
+    # Test case 3
+    result = solution.pacificAtlanticUphill([[4,4,4,4], [4,2,2,4], [4,2,2,4], [4,4,4,4]])
+    print(f"Uphill Test 3: {result}")
