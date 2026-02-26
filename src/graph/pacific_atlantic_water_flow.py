@@ -26,7 +26,7 @@ Constraints:
 
 
 class Solution:
-    def pacificAtlanticUphill(self, heights):
+    def pacificAtlanticDownhill(self, heights):
         """
         Find cells where water can flow to both oceans.
 
@@ -138,13 +138,13 @@ if __name__ == "__main__":
     solution = Solution()
 
     # Test case 1
-    result = solution.pacificAtlanticUphill([[1, 2, 2, 3, 5], [3, 2, 3, 4, 4], [2, 4, 5, 3, 1], [6, 7, 1, 4, 5], [5, 1, 1, 2, 4]])
+    result = solution.pacificAtlanticDownhill([[1, 2, 2, 3, 5], [3, 2, 3, 4, 4], [2, 4, 5, 3, 1], [6, 7, 1, 4, 5], [5, 1, 1, 2, 4]])
     print(f"Test 1: {result}")
 
     # Test case 2
-    result = solution.pacificAtlanticUphill([[1]])
+    result = solution.pacificAtlanticDownhill([[1]])
     print(f"Test 2: {result}")
 
     # Test case 3
-    result = solution.pacificAtlanticUphill([[4,4,4,4], [4,2,2,4], [4,2,2,4], [4,4,4,4]])
+    result = solution.pacificAtlanticDownhill([[4,4,4,4], [4,2,2,4], [4,2,2,4], [4,4,4,4]])
     print(f"Test 3: {result}")
