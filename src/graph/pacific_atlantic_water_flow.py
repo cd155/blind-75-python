@@ -41,93 +41,93 @@ class Solution:
         """
         num_row = len(heights)
         num_column = len(heights[0])
-        heights_copy = [[False for _ in range(0, num_column)] for _ in range(0, num_row)]
         path = set()
-        pacific_island = set()
-        atlantic_island = set()
+        pacific_island_success = set()
+        atlantic_island_success = set()
+        pacific_island_fail = set()
+        atlantic_island_fail = set()
 
         def isConnectPacific(i, j, path):
-            if (i,j) in pacific_island:
+            if (i,j) in pacific_island_success:
                 return True
+            
+            if (i,j) in pacific_island_fail:
+                return False
 
             if(i,j) in path:
                 return False
             path.add((i,j))
 
             if i == 0 or j == 0:
-                pacific_island.add((i,j))
+                pacific_island_success.add((i,j))
                 return True
             
-            if i > 0 and heights[i][j] >= heights[i-1][j]:
-                if isConnectPacific(i-1, j, path):
-                    pacific_island.add((i,j))
-                    return True
-            if i < num_row-1 and heights[i][j] >= heights[i+1][j]:
-                if isConnectPacific(i+1, j, path,):
-                    pacific_island.add((i,j))
-                    return True
-            if j > 0 and heights[i][j] >= heights[i][j-1]:
-                if isConnectPacific(i, j-1, path):
-                    pacific_island.add((i,j))
-                    return True
-            if j < num_column-1 and heights[i][j] >= heights[i][j+1]:
-                if isConnectPacific(i, j+1, path):
-                    pacific_island.add((i,j))
-                    return True
+            hit_cycle = False
+            directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
+            for (di, dj) in directions:
+                next_i, next_j = i+di, j+dj
+                if (0 <= next_i < num_row and 
+                    0 <= next_j < num_column and
+                    heights[i][j] >= heights[next_i][next_j]):
+
+                    if(next_i, next_j) in path:
+                        hit_cycle = True
+                        continue
+
+                    if(isConnectPacific(next_i, next_j,path)):
+                        pacific_island_success.add((i,j))
+                        return True
+
+            if not hit_cycle:
+                pacific_island_fail.add((i, j))
             return False
 
         def isConnectAtlantic(i, j, path):
-            if (i,j) in atlantic_island:
+            if (i,j) in atlantic_island_success:
                 return True
-    
+            
+            if (i,j) in atlantic_island_fail:
+                return False
+
             if(i,j) in path:
                 return False
             path.add((i,j))
         
             if i == num_row-1 or j == num_column-1:
-                atlantic_island.add((i,j))
+                atlantic_island_success.add((i,j))
                 return True
             
-            if i > 0 and heights[i][j] >= heights[i-1][j]:
-                if isConnectAtlantic(i-1, j, path):
-                    atlantic_island.add((i,j))
-                    return True
-            if i < num_row-1 and heights[i][j] >= heights[i+1][j]:
-                if isConnectAtlantic(i+1, j, path):
-                    atlantic_island.add((i,j))
-                    return True
-            if j > 0 and heights[i][j] >= heights[i][j-1]:
-                if isConnectAtlantic(i, j-1, path):
-                    atlantic_island.add((i,j))
-                    return True
-            if j < num_column-1 and heights[i][j] >= heights[i][j+1]:
-                if isConnectAtlantic(i, j+1, path):
-                    atlantic_island.add((i,j))
-                    return True
+            direction = [(-1,0), (1,0), (0,-1), (0,1)]
+            hit_cycle = False
+            for (di, dj) in direction:
+                next_i, next_j = i+di, j+dj
+            
+                if(0 <= next_i < num_row and
+                   0 <= next_j < num_column and 
+                   heights[i][j] >= heights[next_i][next_j]):
+                    
+                    if (next_i,next_j) in path:
+                        hit_cycle = True
+                        continue
 
+                    if isConnectAtlantic(next_i, next_j, path):
+                        atlantic_island_success.add((i,j))
+                        return True
+            if not hit_cycle:
+                atlantic_island_fail.add((i,j))
             return False
-
-        # can island connect pacific
-        for i in range(0, num_row):
-            for j in range(0, num_column):
-                path.clear()
-                if (i,j) in pacific_island or isConnectPacific(i,j,path):
-                      heights_copy[i][j] = True 
-
-        # can island connect atlantic
-        for i in range(0, num_row):
-            for j in range(0, num_column):
-                path.clear()
-                if ((i,j) in atlantic_island or (isConnectAtlantic(i,j, path))) and heights_copy[i][j]:
-                    heights_copy[i][j] = True 
-                else:
-                    heights_copy[i][j] = False 
         
         good_island = []
         for i in range(0, num_row):
             for j in range(0, num_column):
-                if heights_copy[i][j]:
+                path.clear()
+                reach_pacific = (i,j) in pacific_island_success or isConnectPacific(i,j,path)
+
+                path.clear()
+                reach_atlantic = (i,j) in atlantic_island_success or isConnectAtlantic(i,j, path)
+                
+                if reach_pacific and reach_atlantic:
                     good_island.append([i, j])
 
         return good_island
