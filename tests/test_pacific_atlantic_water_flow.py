@@ -29,10 +29,10 @@ class TestPacificAtlanticWaterFlow:
         """Test case from example 1"""
         heights = [[1, 2, 2, 3, 5], [3, 2, 3, 4, 4], [2, 4, 5, 3, 1], [6, 7, 1, 4, 5], [5, 1, 1, 2, 4]]
         result1 = self.solution.pacificAtlanticDownhill(heights)
-        # result2 = self.solution.pacificAtlanticUphill(heights)
+        result2 = self.solution.pacificAtlanticUphill(heights)
         expected = [[0, 4], [1, 3], [1, 4], [2, 2], [3, 0], [3, 1], [4, 0]]
-        assert sorted(result1) == sorted(expected)
+        assert sorted(result1) == sorted(expected) == sorted(result2)
 
     def test_example_2(self):
         """Test case from example 2"""
-        assert self.solution.pacificAtlanticDownhill([[1]]) == [[0, 0]]
+        assert self.solution.pacificAtlanticDownhill([[1]]) == [[0, 0]] == self.solution.pacificAtlanticUphill([[1]])
