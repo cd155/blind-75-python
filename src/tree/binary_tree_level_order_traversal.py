@@ -49,9 +49,9 @@ class Solution:
                 if n:
                     level.append(n.val)
                     if n.left:
-                        new_nodes.append(n.left)
+                        next_level_nodes.append(n.left)
                     if n.right:
-                        new_nodes.append(n.right)
+                        next_level_nodes.append(n.right)
             if level:
                 result.append(level)
             if next_level_nodes:
