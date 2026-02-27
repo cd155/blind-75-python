@@ -39,13 +39,13 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(n)
         """
-        que = [[root]]
+        queue = [[root]]
         result = []
-        while que:
-            nodes = que.pop(0)
+        while queue:
+            level_nodes = queue.pop(0)
             level = []
-            new_nodes = []
-            for n in nodes:
+            next_level_nodes = []
+            for n in level_nodes:
                 if n:
                     level.append(n.val)
                     if n.left:
@@ -54,8 +54,8 @@ class Solution:
                         new_nodes.append(n.right)
             if level:
                 result.append(level)
-            if new_nodes:
-                que.append(new_nodes)
+            if next_level_nodes:
+                queue.append(next_level_nodes)
         return result
 
 

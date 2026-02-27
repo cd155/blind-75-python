@@ -26,7 +26,47 @@ Constraints:
 
 
 class Solution:
-    def pacificAtlantic(self, heights):
+    # Reverse Traversal or Multi-Source Traversal
+    def pacificAtlanticUphill(self, heights):
+        num_row = len(heights)
+        num_column = len(heights[0])
+        reach_pacific = set()
+        reach_atlantic = set()
+
+        def dfs(i, j, reach_islands):
+            reach_islands.add((i, j))
+            direction = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+            for di, dj in direction:
+                next_i, next_j = i + di, j + dj
+                if (0 <= next_i < num_row and 
+                    0 <= next_j < num_column and
+                    (next_i, next_j) not in reach_islands and 
+                    heights[i][j] <= heights[next_i][next_j]):
+                        dfs(next_i, next_j, reach_islands)
+
+        for i in range(0, num_row):
+            # ran pacific
+            dfs(i, 0, reach_pacific)
+
+            # ran atlantic
+            dfs(i, num_column-1, reach_atlantic)
+
+        for j in range(0, num_column):
+            # ran pacific
+            dfs(0, j, reach_pacific)
+
+            # ran atlantic
+            dfs(num_row-1, j, reach_atlantic)
+
+        good_islands = []
+        for (r, c) in reach_pacific:
+            if (r, c) in reach_atlantic:
+                good_islands.append([r, c])
+
+        return good_islands
+
+    # Single-Source Traversal
+    def pacificAtlanticDownhill(self, heights):
         """
         Find cells where water can flow to both oceans.
 
@@ -39,18 +79,126 @@ class Solution:
         Time Complexity: O(m * n)
         Space Complexity: O(m * n)
         """
-        # TODO: Implement solution
-        pass
+        num_row = len(heights)
+        num_column = len(heights[0])
+        path = set()
+        pacific_island_success = set()
+        atlantic_island_success = set()
+        pacific_island_fail = set()
+        atlantic_island_fail = set()
+
+        def isConnectPacific(i, j, path):
+            if (i,j) in pacific_island_success:
+                return True
+            
+            if (i,j) in pacific_island_fail:
+                return False
+
+            if(i,j) in path:
+                return False
+            path.add((i,j))
+
+            if i == 0 or j == 0:
+                pacific_island_success.add((i,j))
+                return True
+            
+            hit_cycle = False
+            directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+            for (di, dj) in directions:
+                next_i, next_j = i+di, j+dj
+                if (0 <= next_i < num_row and 
+                    0 <= next_j < num_column and
+                    heights[i][j] >= heights[next_i][next_j]):
+
+                    if(next_i, next_j) in path:
+                        hit_cycle = True
+                        continue
+
+                    if(isConnectPacific(next_i, next_j,path)):
+                        pacific_island_success.add((i,j))
+                        return True
+
+            if not hit_cycle:
+                pacific_island_fail.add((i, j))
+            return False
+
+        def isConnectAtlantic(i, j, path):
+            if (i,j) in atlantic_island_success:
+                return True
+            
+            if (i,j) in atlantic_island_fail:
+                return False
+
+            if(i,j) in path:
+                return False
+            path.add((i,j))
+        
+            if i == num_row-1 or j == num_column-1:
+                atlantic_island_success.add((i,j))
+                return True
+            
+            direction = [(-1,0), (1,0), (0,-1), (0,1)]
+            hit_cycle = False
+            for (di, dj) in direction:
+                next_i, next_j = i+di, j+dj
+            
+                if(0 <= next_i < num_row and
+                   0 <= next_j < num_column and 
+                   heights[i][j] >= heights[next_i][next_j]):
+                    
+                    if (next_i,next_j) in path:
+                        hit_cycle = True
+                        continue
+
+                    if isConnectAtlantic(next_i, next_j, path):
+                        atlantic_island_success.add((i,j))
+                        return True
+            if not hit_cycle:
+                atlantic_island_fail.add((i,j))
+            return False
+        
+        good_island = []
+        for i in range(0, num_row):
+            for j in range(0, num_column):
+                path.clear()
+                reach_pacific = (i,j) in pacific_island_success or isConnectPacific(i,j,path)
+
+                path.clear()
+                reach_atlantic = (i,j) in atlantic_island_success or isConnectAtlantic(i,j, path)
+                
+                if reach_pacific and reach_atlantic:
+                    good_island.append([i, j])
+
+        return good_island
 
 
 # Example usage (for testing locally)
 if __name__ == "__main__":
     solution = Solution()
 
-    # Test case 1
-    result = solution.pacificAtlantic([[1, 2, 2, 3, 5], [3, 2, 3, 4, 4], [2, 4, 5, 3, 1], [6, 7, 1, 4, 5], [5, 1, 1, 2, 4]])
-    print(f"Test 1: {result}")
+    ## Downhill Test cases
+    # Test case 1 
+    result = solution.pacificAtlanticDownhill([[1, 2, 2, 3, 5], [3, 2, 3, 4, 4], [2, 4, 5, 3, 1], [6, 7, 1, 4, 5], [5, 1, 1, 2, 4]])
+    print(f"Downhill Test 1: {result}")
 
     # Test case 2
-    result = solution.pacificAtlantic([[1]])
-    print(f"Test 2: {result}")
+    result = solution.pacificAtlanticDownhill([[1]])
+    print(f"Downhill Test 2: {result}")
+
+    # Test case 3
+    result = solution.pacificAtlanticDownhill([[4,4,4,4], [4,2,2,4], [4,2,2,4], [4,4,4,4]])
+    print(f"Downhill Test 3: {result}")
+
+    ## Uphill Test cases
+    # Test case 1 
+    result = solution.pacificAtlanticUphill([[1, 2, 2, 3, 5], [3, 2, 3, 4, 4], [2, 4, 5, 3, 1], [6, 7, 1, 4, 5], [5, 1, 1, 2, 4]])
+    print(f"Uphill Test 1: {result}")
+
+    # Test case 2
+    result = solution.pacificAtlanticUphill([[1]])
+    print(f"Uphill Test 2: {result}")
+
+    # Test case 3
+    result = solution.pacificAtlanticUphill([[4,4,4,4], [4,2,2,4], [4,2,2,4], [4,4,4,4]])
+    print(f"Uphill Test 3: {result}")

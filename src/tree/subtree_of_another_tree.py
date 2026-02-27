@@ -43,7 +43,7 @@ class Solution:
 
         Time Complexity: O(m * n) where m, n are tree sizes
         Space Complexity: O(h)
-        """            
+        """
         if self.isSameTree(root, subRoot):
             return True
         elif root is None and subRoot is not None:
