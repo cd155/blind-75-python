@@ -55,6 +55,9 @@ class Solution:
             path.add(course_num)
 
             if course_num not in course_to_course:
+                # Leaf node: backtrack and memoize before returning
+                path.remove(course_num)
+                cleared.add(course_num)
                 return False
 
             pre_requests = course_to_course[course_num]
