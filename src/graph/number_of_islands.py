@@ -44,14 +44,11 @@ class Solution:
         def dfs(i, j):
             if (i,j) not in visit_record and grid[i][j] == "1":
                 visit_record.add((i, j))
-                if 0<=i-1<row_num:
-                    dfs(i-1, j)
-                if 0<=i+1<row_num:
-                    dfs(i+1, j)
-                if 0<=j-1<col_num:
-                    dfs(i, j-1)
-                if 0<=j+1<col_num:
-                    dfs(i, j+1)
+                directions = [(-1, 0), (1, 0), (0, 1), (0, -1)]
+                for di, dj in directions:
+                    next_i, next_j = i + di, j + dj
+                    if 0 <= next_i < row_num and 0 <= next_j < col_num:
+                        dfs(next_i, next_j)
 
         for i in range(0, row_num):
             for j in range(0, col_num):
