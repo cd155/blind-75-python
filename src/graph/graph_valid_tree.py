@@ -36,8 +36,50 @@ class Solution:
         Time Complexity: O(V + E)
         Space Complexity: O(V + E)
         """
-        # TODO: Implement solution
-        pass
+        start_to_end = {}
+        for [course_start, course_end] in edges:
+            if course_start in start_to_end:
+                start_to_end[course_start].append(course_end)
+            else:
+                start_to_end[course_start] = [course_end]
+
+        vistited = set()
+
+        # Does it have a cycle?
+        def dfs(node, path):
+            if node in path:
+                return True
+            path.add(node)
+
+            # reach to end
+            if node not in start_to_end:
+                return False
+
+            childs = start_to_end[node]
+            for child in childs:
+                if dfs(child, path):
+                    return True
+
+            return False
+
+        for node in range(0, n):
+            path = set()
+            if dfs(node, path):
+                return False
+
+            if not vistited:
+                vistited = path
+                continue
+
+            if vistited & path:
+                vistited = vistited.union(path)
+            else:
+                return False
+
+        if len(vistited) == n:
+            return True
+
+        return False
 
 
 # Example usage (for testing locally)
@@ -51,3 +93,7 @@ if __name__ == "__main__":
     # Test case 2
     result = solution.validTree(5, [[0, 1], [1, 2], [2, 3], [1, 3], [1, 4]])
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.validTree(6, [[5, 4], [4, 3], [3, 2], [1, 2], [0, 4]])
+    print(f"Test 3: {result}")
