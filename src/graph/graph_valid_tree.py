@@ -81,6 +81,52 @@ class Solution:
 
         return False
 
+    def validTree2(self, n, edges):
+        """
+        Check if graph forms a valid tree.
+
+        Args:
+            n: int - number of nodes
+            edges: List[List[int]] - list of edges
+
+        Returns:
+            bool - true if graph is a valid tree
+
+        Time Complexity: O(V + E)
+        Space Complexity: O(V + E)
+        """
+        # Build Undirect Adjacency Node List
+        undirect_map = {}
+        for [start, end] in edges:
+            if start in undirect_map:
+                undirect_map[start].append(end)
+            else:
+                undirect_map[start] = [end]
+
+            if end in undirect_map:
+                undirect_map[end].append(start)
+            else:
+                undirect_map[end] = [start]
+
+        visited = set()
+
+        def dfs(node):
+            visited.add(node)
+            childs = undirect_map[node]
+            for child in childs:
+                if child not in visited:
+                    dfs(child)
+
+        if len(edges) != n-1:
+            return False
+        
+        dfs(0)
+
+        if len(visited) == n:
+            return True
+
+        return False
+
 
 # Example usage (for testing locally)
 if __name__ == "__main__":
