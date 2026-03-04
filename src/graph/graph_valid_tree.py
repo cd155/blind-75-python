@@ -22,6 +22,20 @@ Constraints:
 
 
 class Solution:
+    def get_undirected_node_map(self, edges):
+        undirected_node_map = {}
+        for [start, end] in edges:
+            if start in undirected_node_map:
+                undirected_node_map[start].append(end)
+            else:
+                undirected_node_map[start] = [end]
+
+            if end in undirected_node_map:
+                undirected_node_map[end].append(start)
+            else:
+                undirected_node_map[end] = [start]
+        return undirected_node_map
+
     def validTree(self, n, edges):
         """
         Check if graph forms a valid tree.
@@ -36,87 +50,18 @@ class Solution:
         Time Complexity: O(V + E)
         Space Complexity: O(V + E)
         """
-        start_to_end = {}
-        for [course_start, course_end] in edges:
-            if course_start in start_to_end:
-                start_to_end[course_start].append(course_end)
-            else:
-                start_to_end[course_start] = [course_end]
-
-        vistited = set()
-
-        # Does it have a cycle?
-        def dfs(node, path):
-            if node in path:
-                return True
-            path.add(node)
-
-            # reach to end
-            if node not in start_to_end:
-                return False
-
-            childs = start_to_end[node]
-            for child in childs:
-                if dfs(child, path):
-                    return True
-
-            return False
-
-        for node in range(0, n):
-            path = set()
-            if dfs(node, path):
-                return False
-
-            if not vistited:
-                vistited = path
-                continue
-
-            if vistited & path:
-                vistited = vistited.union(path)
-            else:
-                return False
-
-        if len(vistited) == n:
-            return True
-
-        return False
-
-    def validTree2(self, n, edges):
-        """
-        Check if graph forms a valid tree.
-
-        Args:
-            n: int - number of nodes
-            edges: List[List[int]] - list of edges
-
-        Returns:
-            bool - true if graph is a valid tree
-
-        Time Complexity: O(V + E)
-        Space Complexity: O(V + E)
-        """
         # Build Undirect Adjacency Node List
-        undirect_map = {}
-        for [start, end] in edges:
-            if start in undirect_map:
-                undirect_map[start].append(end)
-            else:
-                undirect_map[start] = [end]
-
-            if end in undirect_map:
-                undirect_map[end].append(start)
-            else:
-                undirect_map[end] = [start]
-
+        undirected_node_map = self.get_undirected_node_map(edges)
         visited = set()
 
         def dfs(node):
             visited.add(node)
-            childs = undirect_map[node]
+            childs = undirected_node_map[node]
             for child in childs:
                 if child not in visited:
                     dfs(child)
 
+        # a tree need to have n-1 edges
         if len(edges) != n-1:
             return False
         
@@ -127,19 +72,53 @@ class Solution:
 
         return False
 
+    def valid_tree_parent_pointer(self, n, edges):
+        # Build Undirect Adjacency Node List
+        undirected_node_map = self.get_undirected_node_map(edges)
+        visited = set()
+
+        # Does it have a cycle with parent pointer?
+        def dfs(node, parent):
+            if node in visited:
+                return True
+            visited.add(node)
+
+            # reach to end
+            if node not in undirected_node_map:
+                return False
+
+            childs = undirected_node_map[node]
+            for child in childs:
+                if child != parent: 
+                    if dfs(child, node):
+                        return True
+
+            return False
+
+        if dfs(0, None):
+            return False
+
+        if len(visited) == n:
+            return True
+
+        return False
+
+    def valid_tree_union_find():
+        pass
+
 
 # Example usage (for testing locally)
 if __name__ == "__main__":
     solution = Solution()
 
     # Test case 1
-    result = solution.validTree(5, [[0, 1], [0, 2], [0, 3], [1, 4]])
+    result = solution.valid_tree_parent_pointer(5, [[0, 1], [0, 2], [0, 3], [1, 4]])
     print(f"Test 1: {result}")
 
     # Test case 2
-    result = solution.validTree(5, [[0, 1], [1, 2], [2, 3], [1, 3], [1, 4]])
+    result = solution.valid_tree_parent_pointer(5, [[0, 1], [1, 2], [2, 3], [1, 3], [1, 4]])
     print(f"Test 2: {result}")
 
     # Test case 3
-    result = solution.validTree(6, [[5, 4], [4, 3], [3, 2], [1, 2], [0, 4]])
+    result = solution.valid_tree_parent_pointer(6, [[5, 4], [4, 3], [3, 2], [1, 2], [0, 4]])
     print(f"Test 3: {result}")
