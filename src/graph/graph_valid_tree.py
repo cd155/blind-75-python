@@ -56,7 +56,7 @@ class Solution:
 
         def dfs(node):
             visited.add(node)
-            childs = undirected_node_map[node]
+            childs = undirected_node_map.get(node, [])
             for child in childs:
                 if child not in visited:
                     dfs(child)
