@@ -105,7 +105,8 @@ class Solution:
 
     def valid_tree_union_find(self, n, edges):
         parent = [i for i in range(n)]
-        count = [1]
+        # number of nodes join
+        count = [0]
 
         def find(x):
             if x != parent[x]:
@@ -128,7 +129,8 @@ class Solution:
             if is_cycle:
                 return False
         
-        if count[0] != n:
+        num_of_nodes = count[0] + 1
+        if num_of_nodes != n:
             return False
 
         return True
