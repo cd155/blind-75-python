@@ -37,7 +37,7 @@ class Solution:
         Time Complexity: O(V + E) where V is courses and E is prerequisites
         Space Complexity: O(V + E)
         """
-        # Build Direct Adjacency Node List
+        # Build Directed Adjacency Node List
         course_to_course = {}
         for [course_start, course_end] in prerequisites:
             if course_start in course_to_course:
