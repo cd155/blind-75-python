@@ -35,6 +35,9 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(1) - fixed alphabet size
         """
+        if len(s) != len(t):
+            return False
+
         character_to_count = {}
         for c in s:
             if c in character_to_count:
