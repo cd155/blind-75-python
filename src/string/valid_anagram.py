@@ -35,8 +35,46 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(1) - fixed alphabet size
         """
-        # TODO: Implement solution
-        pass
+        if len(s) != len(t):
+            return False
+
+        character_to_count = {}
+        for c in s:
+            if c in character_to_count:
+                character_to_count[c] += 1
+            else:
+                character_to_count[c] = 1
+
+        for c in t:
+            if c in character_to_count:
+                if character_to_count[c] <= 0:
+                    return False
+                character_to_count[c] -= 1
+            else:
+                return False
+
+        for k in character_to_count:
+            if character_to_count[k] >= 1:
+                return False
+
+        return True
+
+    def is_anagram_array(self, s, t):
+        if len(s) != len(t):
+            return False
+
+        alphabet_to_num = [0] * 26 
+        start_index = ord('a')
+        for c in s:
+            alphabet_to_num[ord(c) - start_index] += 1
+
+        for c in t:
+            i = ord(c) - start_index
+            if alphabet_to_num[i] <= 0:
+                return False
+            alphabet_to_num[i] -= 1
+
+        return True
 
 
 # Example usage (for testing locally)
