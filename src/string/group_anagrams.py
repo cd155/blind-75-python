@@ -35,8 +35,23 @@ class Solution:
         Time Complexity: O(n * k log k) where k is max string length
         Space Complexity: O(n * k)
         """
-        # TODO: Implement solution
-        pass
+        start_index = ord('a')
+        tuple_to_anagrams = {}
+
+        for my_str in strs:
+            alphabet_to_num = [0] * 26
+
+            for c in my_str:
+                i = ord(c) - start_index
+                alphabet_to_num[i] += 1
+
+            arry_to_tuple = tuple(alphabet_to_num)
+            if arry_to_tuple in tuple_to_anagrams:
+                tuple_to_anagrams[arry_to_tuple].append(my_str)
+            else:
+                tuple_to_anagrams[arry_to_tuple] = [my_str]
+
+        return list(tuple_to_anagrams.values())
 
 
 # Example usage (for testing locally)
