@@ -17,7 +17,7 @@ Constraints:
 - -10^4 <= nums[i] <= 10^4
 - k is in the range [1, the number of unique elements in the array]
 """
-
+import heapq
 
 class Solution:
     def topKFrequent(self, nums, k):
@@ -34,9 +34,22 @@ class Solution:
         Time Complexity: O(n log k) with heap, O(n) with bucket sort
         Space Complexity: O(n)
         """
-        # TODO: Implement solution
-        pass
+        num_to_count_dict = {}
+        for num in nums:
+            if num in num_to_count_dict:
+                num_to_count_dict[num] += 1
+            else:
+                num_to_count_dict[num] = 1
 
+        my_heap = []
+
+        for num in num_to_count_dict:
+            if len(my_heap) < k:
+                heapq.heappush(my_heap, (num_to_count_dict[num], num))
+            elif (num_to_count_dict[num] > my_heap[0][0]):
+                heapq.heapreplace(my_heap, (num_to_count_dict[num], num))
+
+        return [num for (_,num) in my_heap]
 
 # Example usage (for testing locally)
 if __name__ == "__main__":
