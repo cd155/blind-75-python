@@ -35,8 +35,10 @@ class Codec:
         Time Complexity: O(n) where n is total characters
         Space Complexity: O(n)
         """
-        # TODO: Implement encode
-        pass
+        result = ""
+        for s in strs:
+            result += f"{len(s)}#{s}"
+        return result
 
     def decode(self, s):
         """
@@ -51,8 +53,19 @@ class Codec:
         Time Complexity: O(n)
         Space Complexity: O(n)
         """
-        # TODO: Implement decode
-        pass
+        i, j = 0, 0
+        result = []
+
+        while i < len(s):
+            while s[j] != '#':
+                j += 1
+            num_size = int(s[i:j])
+            start, end = j+1, j+1+int(num_size)
+            result.append(s[start:end])
+            i = end
+            j = end
+
+        return result
 
 
 # Example usage (for testing locally)
@@ -60,7 +73,7 @@ if __name__ == "__main__":
     codec = Codec()
 
     # Test case 1
-    strs = ["Hello", "World"]
+    strs = ["a", "1234567890#1"]
     encoded = codec.encode(strs)
     decoded = codec.decode(encoded)
     print(f"Test 1: {decoded}")
