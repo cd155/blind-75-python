@@ -24,7 +24,7 @@ class TestEncodeAndDecodeStrings:
     def test_example_1(self):
         """Test case from example 1"""
         codec = Codec()
-        strs = ["Hello", "World"]
+        strs = ["Hello", "World#."]
         encoded = codec.encode(strs)
         decoded = codec.decode(encoded)
         assert decoded == strs
