@@ -34,9 +34,41 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(n)
         """
-        # TODO: Implement solution
-        pass
+        starts = []
+        nums_set = set(nums)
+        
+        for num in nums_set:
+            if((num-1) not in nums_set):
+                starts.append(num)
 
+        max_length = 0
+        for start in starts:
+            temp_length = 1
+            while(start+1 in nums_set):
+                start += 1
+                temp_length += 1
+            max_length = max(max_length, temp_length)
+
+        return max_length
+
+    def longest_consecutive_dfs(self, nums):
+
+        nums_set = set(nums)
+        visited = set()
+        max_length = 0
+
+        def dfs(n):
+            visited.add(n)
+            if n not in nums_set:
+                return 0
+            else:
+                return 1 + dfs(n+1) # set is sorted
+
+        for num in nums_set:
+            if num not in visited:
+                max_length = max(max_length, dfs(num))
+
+        return max_length
 
 # Example usage (for testing locally)
 if __name__ == "__main__":
