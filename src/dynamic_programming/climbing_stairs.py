@@ -38,8 +38,17 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        stair_to_num_ways = {0: 1, 1: 1}
+
+        def climb(n_stair):
+            if n_stair in stair_to_num_ways:
+                return stair_to_num_ways[n_stair]
+            else:
+                num_of_ways = climb(n_stair-1) + climb(n_stair-2)
+                stair_to_num_ways[n_stair] = num_of_ways
+                return num_of_ways       
+
+        return climb(n)
 
 
 # Example usage (for testing locally)
@@ -53,3 +62,7 @@ if __name__ == "__main__":
     # Test case 2
     result = solution.climbStairs(3)
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.climbStairs(8)
+    print(f"Test 3: {result}")
