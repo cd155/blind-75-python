@@ -32,3 +32,7 @@ class TestClimbingStairs:
     def test_example_2(self):
         """Test case from example 2"""
         assert self.solution.climbStairs(3) == 3
+
+    def test_example_3(self):
+        """Test case from example 3"""
+        assert self.solution.climbStairs(8) == 34
