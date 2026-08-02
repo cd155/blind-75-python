@@ -37,8 +37,24 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        size = len(nums)
+        max_money_index_hash = {}
+
+        def max_money_index_of(n):
+            if n in max_money_index_hash:
+                return max_money_index_hash[n]
+            
+            if n >= size: 
+                return 0
+
+            rob_house = nums[n] + max_money_index_of(n+2)
+            skip_house = max_money_index_of(n+1)
+
+            result = max(rob_house, skip_house)
+            max_money_index_hash[n] = result
+            return result
+
+        return max_money_index_of(0)
 
 
 # Example usage (for testing locally)
@@ -52,3 +68,7 @@ if __name__ == "__main__":
     # Test case 2
     result = solution.rob([2, 7, 9, 3, 1])
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.rob([2, 1, 1, 2])
+    print(f"Test 3: {result}")
