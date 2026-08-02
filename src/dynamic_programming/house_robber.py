@@ -48,7 +48,7 @@ class Solution:
                 return 0
 
             rob_house = nums[n] + max_money_index_of(n+2)
-            skip_house =  max_money_index_of(n+1)
+            skip_house = max_money_index_of(n+1)
 
             result = max(rob_house, skip_house)
             max_money_index_hash[n] = result
