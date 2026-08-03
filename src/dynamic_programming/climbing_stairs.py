@@ -50,6 +50,12 @@ class Solution:
 
         return climb(n)
 
+    def climb_stairs_bottom_up(self, n):
+        stair_to_num_ways = [1, 1]
+        for i in range(2,n+1):
+            stair_to_num_ways.append(stair_to_num_ways[i-1] + stair_to_num_ways[i-2])
+        return stair_to_num_ways[-1]
+
 
 # Example usage (for testing locally)
 if __name__ == "__main__":
