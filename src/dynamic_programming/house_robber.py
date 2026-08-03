@@ -64,7 +64,6 @@ class Solution:
 
         result = [nums[0], max(nums[0], nums[1])]
         for i in range(2, size):
-            print(i)
             rob_house = nums[i] + result[i-2]
             skip_house = result[i-1]
             result.append(max(rob_house, skip_house))
