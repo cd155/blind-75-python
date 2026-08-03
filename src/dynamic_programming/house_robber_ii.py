@@ -64,6 +64,27 @@ class Solution:
 
         return max(rob_range(nums[0:(size-1)]), rob_range(nums[1:size]))
 
+    def rob_ii(self, nums):
+        size = len(nums)
+        if size == 1: return nums[0]
+        if size == 2: return max(nums[0], nums[1])
+        if size == 3: return max(nums[0], nums[1], nums[2])
+
+        def rob_bottom_up(nums):
+            size = len(nums)
+
+            if size == 1: return nums[0]
+            if size == 2: return max(nums[0], nums[1])
+
+            result = [nums[0], max(nums[0], nums[1])]
+            for i in range(2, size):
+                rob_house = nums[i] + result[i-2]
+                skip_house = result[i-1]
+                result.append(max(rob_house, skip_house))
+            return result[-1]
+
+        return max(rob_bottom_up(nums[0:(size-1)]), rob_bottom_up(nums[1:size]))
+
 
 # Example usage (for testing locally)
 if __name__ == "__main__":
