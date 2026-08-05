@@ -34,7 +34,7 @@ class Solution:
         """
         size = len(s)
 
-        def find_palindromic_str(left, right):
+        def expand_around_center(left, right):
             while (left >= 0 and right < size and s[left] == s[right]):
                 left -= 1
                 right += 1
@@ -43,12 +43,12 @@ class Solution:
         result  = 0, 0
         for i in range(0, size):
             # examine palindrome in odd case
-            left, right = find_palindromic_str(i-1, i+1)
+            left, right = expand_around_center(i-1, i+1)
             if(right-left) > (result[1] - result[0]):
                 result = left, right
 
             # examine palindrome in even case
-            left, right = find_palindromic_str(i, i+1)
+            left, right = expand_around_center(i, i+1)
             if(right-left) > (result[1] - result[0]):
                 result = left, right
 
