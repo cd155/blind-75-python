@@ -37,8 +37,21 @@ class Solution:
         Time Complexity: O(n^2)
         Space Complexity: O(1)
         """
-        # TODO: Implement solution
-        pass
+        size = len(s)
+        result = 0
+        
+        def count_expand_around_center(left, right):
+            count = 0
+            while(left >= 0 and right < size and s[left] == s[right]):
+                left -=1
+                right += 1
+                count += 1
+            return count
+
+        for i in range(size):
+            result += count_expand_around_center(i, i)
+            result += count_expand_around_center(i, i+1)
+        return result
 
 
 # Example usage (for testing locally)
