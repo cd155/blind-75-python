@@ -32,9 +32,27 @@ class Solution:
         Time Complexity: O(n^2)
         Space Complexity: O(1)
         """
-        # TODO: Implement solution
-        pass
+        size = len(s)
 
+        def expand_around_center(left, right):
+            while (left >= 0 and right < size and s[left] == s[right]):
+                left -= 1
+                right += 1
+            return left+1, right-1
+
+        result  = 0, 0
+        for i in range(0, size):
+            # examine palindrome in odd case
+            left, right = expand_around_center(i, i)
+            if(right-left) > (result[1] - result[0]):
+                result = left, right
+
+            # examine palindrome in even case
+            left, right = expand_around_center(i, i+1)
+            if(right-left) > (result[1] - result[0]):
+                result = left, right
+
+        return s[result[0]:(result[1]+1)]
 
 # Example usage (for testing locally)
 if __name__ == "__main__":
