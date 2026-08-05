@@ -43,7 +43,7 @@ class Solution:
         result  = 0, 0
         for i in range(0, size):
             # examine palindrome in odd case
-            left, right = expand_around_center(i-1, i+1)
+            left, right = expand_around_center(i, i)
             if(right-left) > (result[1] - result[0]):
                 result = left, right
 
