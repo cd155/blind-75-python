@@ -38,8 +38,43 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        result = [float('inf')]*(amount+1)
+        result[0] = 0
+        
+        for small_amount in range(amount+1):
+
+            for coin in coins:
+                if small_amount-coin >= 0:
+                    result[small_amount] = min(result[small_amount-coin]+1, result[small_amount])
+
+        if result[-1] == float('inf'):
+            return -1
+        else:
+            return result[-1]
+
+    def coin_change_dfs(self, coins, amount):
+        if amount == 0: return 0
+        size_coin = len(coins)
+        min_coin = float('inf')
+
+        def dfs(n, start_index, count):
+            nonlocal min_coin
+
+            if n == 0:
+                min_coin = min(count, min_coin)
+                return
+            if n < 0:
+                return
+            
+            for i in range(start_index, size_coin):
+                dfs(n-coins[i], i, count+1)
+
+        dfs(amount, 0, 0)
+
+        if min_coin == float('inf'):
+            return -1
+        else:
+            return min_coin
 
 
 # Example usage (for testing locally)
@@ -50,6 +85,10 @@ if __name__ == "__main__":
     result = solution.coinChange([1, 2, 5], 11)
     print(f"Test 1: {result}")
 
-    # Test case 2
-    result = solution.coinChange([2], 3)
-    print(f"Test 2: {result}")
+    # # Test case 2
+    # result = solution.coinChange([2], 3)
+    # print(f"Test 2: {result}")
+
+    # # Test case 3
+    # result = solution.coinChange([2], 0)
+    # print(f"Test 3: {result}")
