@@ -41,6 +41,30 @@ class Solution:
         # TODO: Implement solution
         pass
 
+    def coin_change_dfs(self, coins, amount):
+        if amount == 0: return 0
+        size_coin = len(coins)
+        min_coin = float('inf')
+
+        def dfs(n, start_index, count):
+            nonlocal min_coin
+
+            if n == 0:
+                min_coin = min(count, min_coin)
+                return
+            if n < 0:
+                return
+            
+            for i in range(start_index, size_coin):
+                dfs(n-coins[i], i, count+1)
+
+        dfs(amount, 0, 0)
+
+        if min_coin == float('inf'):
+            return -1
+        else:
+            return min_coin
+
 
 # Example usage (for testing locally)
 if __name__ == "__main__":
@@ -53,3 +77,7 @@ if __name__ == "__main__":
     # Test case 2
     result = solution.coinChange([2], 3)
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.coinChange([2], 0)
+    print(f"Test 3: {result}")
