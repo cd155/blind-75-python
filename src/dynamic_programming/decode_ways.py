@@ -38,8 +38,41 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        size = len(s)
+        num_to_count_array = [0]*size
+
+        if int(s[0]) != 0:
+            num_to_count_array[0] = 1
+
+        for i in range(1, size):
+            if int(s[i]) != 0:
+                num_to_count_array[i] = num_to_count_array[i-1]
+
+            if 10<=int(s[i-1:i+1])<=26:
+                if i == 1:
+                    num_to_count_array[i] += 1
+                else:
+                    num_to_count_array[i] += num_to_count_array[i-2]
+        return num_to_count_array
+
+    # decode anything with a hash table
+    def decodings(self, s):
+        decode_hash = {'1': 'a', '2': 'aa', '11': 'c', '22': 'cc'}
+        max_length_value = max(len(k) for k in decode_hash.keys)
+        size = len(s)
+        num_to_count_array = [0]*size
+
+        for i in range(0, size):
+            for j in range(0, max_length_value):
+                start = i - j
+                if start >= 0:
+                    sub_string = s[start: i+1]
+                    if sub_string in decode_hash:
+                        if start == 0:
+                            num_to_count_array[i] += 1
+                        else:
+                            num_to_count_array[i] += num_to_count_array[start-1] 
+        return num_to_count_array[-1]
 
 
 # Example usage (for testing locally)
@@ -53,3 +86,15 @@ if __name__ == "__main__":
     # Test case 2
     result = solution.numDecodings("226")
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.numDecodings("01")
+    print(f"Test 3: {result}")
+
+    # Test case 4
+    result = solution.numDecodings("100")
+    print(f"Test 4: {result}")
+
+    # Test case 5
+    result = solution.decodings("1122")
+    print(f"Test 5: {result}")
