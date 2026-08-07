@@ -40,10 +40,27 @@ class Solution:
         """
         max_word_length = max(len(word) for word in wordDict)
         size = len(s)
-        print(size, max_word_length)
+        result = [False]*size
+        word_dict_set = set(wordDict)
+
+        for end in range(1, size+1):
+            for w_length in range(1, max_word_length+1):
+                start = end - w_length
+                if start>=0 and s[start:end] in word_dict_set:
+                    # base case
+                    if start-1 < 0:
+                        result[end-1] = True
+                    else:
+                        result[end-1] = result[start-1] or result[end-1]
+        return result[-1]
+
+    def word_break_def(self, s, wordDict):
+        max_word_length = max(len(word) for word in wordDict)
+        size = len(s)
+
+        word_dict_set = set(wordDict)
 
         def dfs (start):
-            print(start)
             if start == size:
                 return True
 
@@ -52,19 +69,20 @@ class Solution:
             
             for i in range(max_word_length+1):
                 end = start+i
-                if s[start: end] in wordDict:
+                if s[start: end] in word_dict_set:
                     if (dfs(end)):
                         return True
             return False
 
         return dfs(0)
 
+
 # Example usage (for testing locally)
 if __name__ == "__main__":
     solution = Solution()
 
     # Test case 1
-    result = solution.wordBreak("leetcode", ["leet", "code"])
+    result = solution.wordBreak("dogs", ["dog", "s", "gs"])
     print(f"Test 1: {result}")
 
     # Test case 2
@@ -73,4 +91,4 @@ if __name__ == "__main__":
 
     # Test case 3
     result = solution.wordBreak("catsincars", ["cats","cat","sin","in","car"])
-    print(f"Test 2: {result}")
+    print(f"Test 3: {result}")
