@@ -34,14 +34,13 @@ class Solution:
         Space Complexity: O(?)
         """
         global_max = nums[0]
-        max_n, min_n = nums[0], nums[0]
+        max_end_here, min_end_here = nums[0], nums[0]
         for num in nums[1:]:
-            temp_max_n = max(num, max_n*num, min_n*num)
-            min_n = min(num, min_n*num, max_n*num)
-            max_n = temp_max_n
-            global_max = max(global_max, max_n)
+            temp_max_n = max(num, max_end_here*num, min_end_here*num)
+            min_end_here = min(num, min_end_here*num, max_end_here*num)
+            max_end_here = temp_max_n
+            global_max = max(global_max, max_end_here)
         return global_max
-
 
 # Example usage (for testing locally)
 if __name__ == "__main__":
@@ -58,3 +57,15 @@ if __name__ == "__main__":
     # Test case 3
     result = solution.maxProduct([-4, -3, -2])
     print(f"Test 3: {result}")
+
+    """
+    Suppose you're at index i. Every subarray ending at i is either:
+
+    1. [nums[i]]
+    2. (some subarray ending at i-1) + nums[i]
+
+    Among all subarrays ending at i-1, you don't need to remember every product. To compute the next extremes:
+
+    if nums[i] is positive, only the largest previous product can produce the largest new product;
+    if nums[i] is negative, only the smallest previous product can produce the largest new product.
+    """
