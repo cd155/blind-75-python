@@ -38,9 +38,26 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        max_word_length = max(len(word) for word in wordDict)
+        size = len(s)
+        print(size, max_word_length)
 
+        def dfs (start):
+            print(start)
+            if start == size:
+                return True
+
+            if start > size:
+                return False
+            
+            for i in range(max_word_length+1):
+                end = start+i
+                if s[start: end] in wordDict:
+                    if (dfs(end)):
+                        return True
+            return False
+
+        return dfs(0)
 
 # Example usage (for testing locally)
 if __name__ == "__main__":
@@ -52,4 +69,8 @@ if __name__ == "__main__":
 
     # Test case 2
     result = solution.wordBreak("applepenapple", ["apple", "pen"])
+    print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.wordBreak("catsincars", ["cats","cat","sin","in","car"])
     print(f"Test 2: {result}")
