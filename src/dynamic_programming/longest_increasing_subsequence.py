@@ -32,8 +32,23 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+
+        # dp[i] must represent the length of the longest increasing subsequence 
+        # that ends exactly at index i, using nums[i] as the final number in 
+        # that sequence.
+
+        size = len(nums)
+        # minimum increasing subsequence of length is 1
+        dp = [1]*size
+        for i in range(0,size):
+            for j in reversed(range(0, i)):
+
+                # look backward as is it smaller than me?
+                if nums[j] < nums[i]:
+                    # Does attaching my number better than already has?
+                    dp[i] = max(dp[i], dp[j]+1)
+
+        return max(dp)                
 
 
 # Example usage (for testing locally)
@@ -47,3 +62,7 @@ if __name__ == "__main__":
     # Test case 2
     result = solution.lengthOfLIS([0, 1, 0, 3, 2, 3])
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.lengthOfLIS([4,10,4,3,8,9])
+    print(f"Test 3: {result}")
