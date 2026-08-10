@@ -38,8 +38,26 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(n)
         """
-        # TODO: Implement solution
-        pass
+        size = len(intervals)
+        result = []
+        start_insert, end_insert = newInterval
+
+        i = 0
+        while i < size and start_insert > intervals[i][1]:
+            result.append(intervals[i])
+            i += 1
+
+        while i < size and end_insert >= intervals[i][0]:
+            start_insert = min(start_insert, intervals[i][0])
+            end_insert = max(end_insert, intervals[i][1])
+            i += 1
+        result.append(newInterval)
+
+        while i < size:
+            result.append(intervals[i])
+            i += 1
+
+        return result
 
 
 # Example usage (for testing locally)
@@ -53,3 +71,11 @@ if __name__ == "__main__":
     # Test case 2
     result = solution.insert([[1, 2], [3, 5], [6, 7], [8, 10], [12, 16]], [4, 8])
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.insert([], [4, 8])
+    print(f"Test 3: {result}")
+
+    # Test case 4
+    result = solution.insert([[1,5]], [2, 3])
+    print(f"Test 4: {result}")
