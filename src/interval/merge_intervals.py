@@ -52,13 +52,13 @@ class Solution:
 if __name__ == "__main__":
     solution = Solution()
 
-    # # Test case 1
-    # result = solution.merge([[1, 3], [2, 6], [8, 10], [15, 18]])
-    # print(f"Test 1: {result}")
+    # Test case 1
+    result = solution.merge([[1, 3], [2, 6], [8, 10], [15, 18]])
+    print(f"Test 1: {result}")
 
-    # # Test case 2
-    # result = solution.merge([[1, 4], [4, 5]])
-    # print(f"Test 2: {result}")
+    # Test case 2
+    result = solution.merge([[1, 4], [4, 5]])
+    print(f"Test 2: {result}")
 
     # Test case 3
     result = solution.merge([[1,4], [0,0]])
