@@ -33,6 +33,8 @@ class Solution:
         Time Complexity: O(n log n)
         Space Complexity: O(1)
         """
+
+        # Greedy: keep the interval that finishes earliest.
         intervals.sort(key=lambda x:x[0])
         pre_end = intervals[0][1]
         size = len(intervals)
