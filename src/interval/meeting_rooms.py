@@ -35,9 +35,10 @@ class Solution:
         intervals.sort(key=lambda x:x[0])
         size = len(intervals)
         pre_end = intervals[0][1]
-        for start, _ in intervals[1:size]:
+        for start, end in intervals[1:size]:
             if start < pre_end:
                 return False
+            pre_end = end
         return True
 
 
