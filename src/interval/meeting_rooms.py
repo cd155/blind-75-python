@@ -32,8 +32,14 @@ class Solution:
         Time Complexity: O(n log n)
         Space Complexity: O(1)
         """
-        # TODO: Implement solution
-        pass
+        intervals.sort(key=lambda x:x[0])
+        size = len(intervals)
+        pre_end = intervals[0][1]
+        for start, end in intervals[1:size]:
+            if start < pre_end:
+                return False
+            pre_end = end
+        return True
 
 
 # Example usage (for testing locally)
