@@ -40,16 +40,14 @@ class Solution:
         """
         size = len(intervals)
         result = []
-        start_insert, end_insert = newInterval
-
         i = 0
-        while i < size and start_insert > intervals[i][1]:
+        while i < size and intervals[i][1] < newInterval[0]:
             result.append(intervals[i])
             i += 1
 
-        while i < size and end_insert >= intervals[i][0]:
-            start_insert = min(start_insert, intervals[i][0])
-            end_insert = max(end_insert, intervals[i][1])
+        while i < size and intervals[i][0] <= newInterval[1]:
+            newInterval[0] = min(newInterval[0], intervals[i][0])
+            newInterval[1] = max(newInterval[1], intervals[i][1])
             i += 1
         result.append(newInterval)
 
