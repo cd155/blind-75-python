@@ -17,6 +17,7 @@ Constraints:
 - 0 <= starti < endi <= 10^6
 """
 
+import heapq
 
 class Solution:
     def minMeetingRooms(self, intervals):
@@ -32,8 +33,17 @@ class Solution:
         Time Complexity: O(n log n)
         Space Complexity: O(n)
         """
-        # TODO: Implement solution
-        pass
+        intervals.sort(key=lambda x:x[0])
+        size = len(intervals)
+        h = [intervals[0][1]]
+
+        for s, e in intervals[1:size]:
+            if s >= h[0]:
+                heapq.heapreplace(h, e)
+            else:
+                heapq.heappush(h, e)
+                
+        return len(h)
 
 
 # Example usage (for testing locally)
@@ -47,3 +57,7 @@ if __name__ == "__main__":
     # Test case 2
     result = solution.minMeetingRooms([[7, 10], [2, 4]])
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.minMeetingRooms([[1,5],[2,6],[3,7],[4,8],[5,9]])
+    print(f"Test 3: {result}")
