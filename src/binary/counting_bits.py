@@ -31,8 +31,26 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        result = [0, 1]
+        power_2 = 2
+        i = 1
+        while i <= n:
+            next_patch = [num+1 for num in result[0:power_2]]
+            result.extend(next_patch)
+            power_2 *= 2
+            i = len(result)
+
+        return result[:n+1]
+
+    def count_bits_dp(self, n):
+        result = [0]*(n+1)
+        result[1] = 1
+        offset = 2
+        for i in range(2, n+1):
+            result[i] = 1+ result[i-offset]
+            if i == offset*2 - 1:
+                offset *= 2
+        return result 
 
 
 # Example usage (for testing locally)
