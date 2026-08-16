@@ -31,7 +31,7 @@ class Solution:
         Space Complexity: O(?)
         """
         result = 0
-        for i in range(len(bin(n)) - 2):
+        for i in range(32):
             result = (result << 1) | ((n >> i) & 1)
         return result
 
