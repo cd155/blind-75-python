@@ -30,8 +30,10 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        result = 0
+        for i in range(len(bin(n)) - 2):
+            result = (result << 1) | ((n >> i) & 1)
+        return result
 
 
 # Example usage (for testing locally)
@@ -40,8 +42,12 @@ if __name__ == "__main__":
 
     # Test case 1
     result = solution.reverseBits(0b00000010100101000001111010011100)
-    print(f"Test 1: {result}")
+    print(f"Test 1: {bin(result)}")
 
     # Test case 2
     result = solution.reverseBits(0b11111111111111111111111111111101)
-    print(f"Test 2: {result}")
+    print(f"Test 2: {bin(result)}")
+
+    # Test case 3
+    result = solution.reverseBits(0b11001)
+    print(f"Test 3: {bin(result)}")
