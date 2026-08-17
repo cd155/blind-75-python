@@ -34,8 +34,15 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        n = len(nums) + 1
+        result = 0
+        for i in range(n):
+            result ^= i
+
+        for num in nums:
+            result ^= num
+
+        return result
 
 
 # Example usage (for testing locally)
@@ -43,7 +50,7 @@ if __name__ == "__main__":
     solution = Solution()
 
     # Test case 1
-    result = solution.missingNumber([3, 0, 1])
+    result = solution.missingNumber([3, 0, 2])
     print(f"Test 1: {result}")
 
     # Test case 2
