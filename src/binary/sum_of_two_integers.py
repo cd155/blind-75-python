@@ -31,8 +31,20 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        # 32 digits binary with all 1
+        MASK = 0xFFFFFFFF
+        MAX_INT = 0x7FFFFFFF
+
+        carry_digit, sum_digit = 1, 1
+        while carry_digit != 0:
+            sum_digit = (a ^ b) & MASK
+            carry_digit = ((a & b) << 1) & MASK
+            a, b = sum_digit, carry_digit
+
+        if sum_digit > MAX_INT:
+            # mathematical trick flip the 32 digital, then flip entire
+            return ~(sum_digit ^ MASK)
+        return sum_digit
 
 
 # Example usage (for testing locally)
@@ -44,5 +56,9 @@ if __name__ == "__main__":
     print(f"Test 1: {result}")
 
     # Test case 2
-    result = solution.getSum(2, 3)
+    result = solution.getSum(-1, 3)
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.getSum(5, 0)
+    print(f"Test 3: {result}")
