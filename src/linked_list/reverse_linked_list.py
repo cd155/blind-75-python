@@ -37,8 +37,26 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(1) iterative, O(n) recursive
         """
-        # TODO: Implement solution
-        pass
+        current_ln = head
+        result_head = None
+        while current_ln != None:
+            result_head = ListNode(current_ln.val, result_head)
+            current_ln = current_ln.next
+        return result_head
+
+    def reverse_list_in_place(self, head):
+        current_ln = head
+        result_head = None
+
+        while current_ln != None:
+            # swap current node and next
+            next_ln = current_ln.next
+
+            current_ln.next = result_head
+            result_head = current_ln
+
+            current_ln = next_ln
+        return result_head
 
 
 # Example usage (for testing locally)
