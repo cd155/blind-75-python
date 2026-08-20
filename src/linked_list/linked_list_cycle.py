@@ -43,7 +43,7 @@ class Solution:
         
         one_increase, two_increase = head, head.next
 
-        while one_increase and two_increase and two_increase.next:
+        while two_increase and two_increase.next:
             if one_increase is two_increase:
                 return True
 
