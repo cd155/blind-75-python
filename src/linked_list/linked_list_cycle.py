@@ -38,8 +38,19 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(1)
         """
-        # TODO: Implement solution
-        pass
+        if head == None or head.next == None:
+            return False
+        
+        one_increase, two_increase = head, head.next
+
+        while one_increase and two_increase and two_increase.next:
+            if one_increase is two_increase:
+                return True
+
+            one_increase = one_increase.next
+            two_increase = two_increase.next.next
+
+        return False
 
 
 # Example usage (for testing locally)
