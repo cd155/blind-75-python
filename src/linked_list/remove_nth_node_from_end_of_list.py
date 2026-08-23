@@ -40,8 +40,24 @@ class Solution:
         Time Complexity: O(L) where L is length of list
         Space Complexity: O(1)
         """
-        # TODO: Implement solution
-        pass
+        dummy = ListNode(next=head)
+        fast, slow = dummy, dummy
+        i = 0
+        while fast:
+            if i > n:
+                slow = slow.next
+            fast = fast.next
+            i += 1
+
+        if slow and slow.next:
+            slow.next = slow.next.next
+
+        return dummy.next
+
+    def pretty_print(self, list_ln):
+        while list_ln:
+            print(list_ln.val)
+            list_ln = list_ln.next
 
 
 # Example usage (for testing locally)
@@ -51,9 +67,9 @@ if __name__ == "__main__":
     # Test case 1
     head = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
     result = solution.removeNthFromEnd(head, 2)
-    print(f"Test 1: {result.val if result else None}")
+    solution.pretty_print(result)
 
     # Test case 2
     head = ListNode(1)
     result = solution.removeNthFromEnd(head, 1)
-    print(f"Test 2: {result}")
+    solution.pretty_print(result)
