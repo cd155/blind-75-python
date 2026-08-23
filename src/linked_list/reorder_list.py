@@ -43,8 +43,49 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(1)
         """
-        # TODO: Implement solution
-        pass
+        def reverse_list_in_place(head_ln):
+            current_ln = head_ln
+            result_head = None
+
+            while current_ln != None:
+                # swap current node and next
+                next_ln = current_ln.next
+
+                current_ln.next = result_head
+                result_head = current_ln
+
+                current_ln = next_ln
+            return result_head
+    
+        head_ref = head
+
+        fast, slow = head, head
+        while fast.next and fast.next.next:
+            fast = fast.next.next
+            slow = slow.next
+
+        # break the list to two
+        second_half = slow.next
+        slow.next = None
+
+        reversed_ln = reverse_list_in_place(second_half)
+
+        while reversed_ln:
+            head_next = head.next
+            reversed_ln_next = reversed_ln.next
+
+            head.next = reversed_ln
+            reversed_ln.next = head_next
+
+            head = head_next
+            reversed_ln = reversed_ln_next
+        
+        return head_ref
+
+    def pretty_print(self, list_ln):
+        while list_ln:
+            print(list_ln.val)
+            list_ln = list_ln.next
 
 
 # Example usage (for testing locally)
@@ -53,10 +94,10 @@ if __name__ == "__main__":
 
     # Test case 1
     head = ListNode(1, ListNode(2, ListNode(3, ListNode(4))))
-    solution.reorderList(head)
-    print(f"Test 1: {head.val}")
+    ln = solution.reorderList(head)
+    solution.pretty_print(ln)
 
     # Test case 2
     head = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
-    solution.reorderList(head)
-    print(f"Test 2: {head.val}")
+    ln = solution.reorderList(head)
+    solution.pretty_print(ln)
