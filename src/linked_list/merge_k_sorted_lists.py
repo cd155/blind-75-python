@@ -40,8 +40,31 @@ class Solution:
         Time Complexity: O(N log k) where N is total nodes
         Space Complexity: O(k) for heap
         """
-        # TODO: Implement solution
-        pass
+        lists = [list for list in lists if list]
+
+        dummy = ListNode()
+        head = dummy
+
+        while lists:
+            append_list = []
+            for list in lists:
+                append_list.append(list.val)
+            min_val = min(append_list)
+            index = append_list.index(min_val)
+            head.next = lists[index]
+            head = head.next
+
+            # clean up the list and lists
+            lists[index] = lists[index].next
+            if lists[index] == None:
+                lists.pop(index)
+
+        return dummy.next
+
+    def pretty_print(self, list_ln):
+        while list_ln:
+            print(list_ln.val)
+            list_ln = list_ln.next
 
 
 # Example usage (for testing locally)
@@ -53,7 +76,7 @@ if __name__ == "__main__":
     list2 = ListNode(1, ListNode(3, ListNode(4)))
     list3 = ListNode(2, ListNode(6))
     result = solution.mergeKLists([list1, list2, list3])
-    print(f"Test 1: {result.val if result else None}")
+    solution.pretty_print(result)
 
     # Test case 2
     result = solution.mergeKLists([])
