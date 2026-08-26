@@ -32,7 +32,21 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(min(n, m)) where m is charset size
         """
-        # TODO: Implement solution
+        max_longest_str = 0
+        temp = []
+        for i in range(len(s)):
+            if s[i] in temp:
+                while s[i] in temp:
+                    temp.pop(0)
+            temp.append(s[i])
+            max_longest_str = max(max_longest_str, len(temp))
+
+        return max_longest_str
+
+    def length_of_longest_substring_two_pointers(self, s):
+        pass
+
+    def length_of_longest_substring_hash(self, s):
         pass
 
 
@@ -47,3 +61,15 @@ if __name__ == "__main__":
     # Test case 2
     result = solution.lengthOfLongestSubstring("bbbbb")
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.lengthOfLongestSubstring("abacd")
+    print(f"Test 3: {result}")
+
+    # Test case 4
+    result = solution.lengthOfLongestSubstring("bba")
+    print(f"Test 4: {result}")
+
+    # Test case 5
+    result = solution.lengthOfLongestSubstring("pwwkew")
+    print(f"Test 5: {result}")
