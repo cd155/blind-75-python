@@ -32,8 +32,30 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(min(n, m)) where m is charset size
         """
-        # TODO: Implement solution
-        pass
+        max_longest_str = 0
+        temp = []
+        for i in range(len(s)):
+            while s[i] in temp:
+                temp.pop(0)
+            temp.append(s[i])
+            max_longest_str = max(max_longest_str, len(temp))
+
+        return max_longest_str
+
+    def length_of_longest_substring_two_pointers(self, s):
+        left = 0
+        max_longest_str = 0
+        last_seen = set()
+        for right in range(len(s)):
+            while s[right] in last_seen:
+                last_seen.remove(s[left])
+                left += 1
+            last_seen.add(s[right])
+
+            print(left, right, last_seen)
+            max_longest_str = max(max_longest_str, right-left+1)
+
+        return max_longest_str
 
 
 # Example usage (for testing locally)
@@ -41,9 +63,21 @@ if __name__ == "__main__":
     solution = Solution()
 
     # Test case 1
-    result = solution.lengthOfLongestSubstring("abcabcbb")
+    result = solution.length_of_longest_substring_two_pointers("abcabcbb")
     print(f"Test 1: {result}")
 
     # Test case 2
-    result = solution.lengthOfLongestSubstring("bbbbb")
+    result = solution.length_of_longest_substring_two_pointers("bbbbb")
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.length_of_longest_substring_two_pointers("abacd")
+    print(f"Test 3: {result}")
+
+    # Test case 4
+    result = solution.lengthOfLongestSubstring("bba")
+    print(f"Test 4: {result}")
+
+    # Test case 5
+    result = solution.lengthOfLongestSubstring("pwwkew")
+    print(f"Test 5: {result}")
