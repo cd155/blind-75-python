@@ -42,9 +42,12 @@ class Solution:
         size_str = len(s)
         max_str = 0
         counts = [0]*26
+        max_count = 0
         for i in range(size_str):
-            counts[ord(s[i])-ord('A')] += 1
-            if (sum(counts) - max(counts)) > k:
+            index = ord(s[i])-ord('A')
+            counts[index] += 1
+            max_count = max(max_count, counts[index])
+            if ((i-left+1) - max_count) > k:
                 counts[ord(s[left])-ord('A')] -= 1
                 left += 1
             max_str = max(max_str, i-left+1)
