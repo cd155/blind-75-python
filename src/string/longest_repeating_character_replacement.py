@@ -38,8 +38,18 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(1) - fixed size alphabet
         """
-        # TODO: Implement solution
-        pass
+        left = 0
+        size_str = len(s)
+        max_str = 0
+        counts = [0]*26
+        for i in range(size_str):
+            counts[ord(s[i])-ord('A')] += 1
+            if (sum(counts) - max(counts)) > k:
+                counts[ord(s[left])-ord('A')] -= 1
+                left += 1
+            max_str = max(max_str, i-left+1)
+
+        return max_str
 
 
 # Example usage (for testing locally)
@@ -52,4 +62,8 @@ if __name__ == "__main__":
 
     # Test case 2
     result = solution.characterReplacement("AABABBA", 1)
+    print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.characterReplacement("ABBABB", 2)
     print(f"Test 2: {result}")
