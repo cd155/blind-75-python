@@ -58,8 +58,6 @@ class Solution:
             if s[i] in hash_s and hash_s[s[i]] == hash_t[s[i]]:
                 formed += 1
 
-            print(formed, required)
-
             if formed == required:
                 for j in range(left, i+1):
                     if (i-left+1) < min_length:
