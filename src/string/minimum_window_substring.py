@@ -36,8 +36,45 @@ class Solution:
         Time Complexity: O(m + n)
         Space Complexity: O(m + n)
         """
-        # TODO: Implement solution
-        pass
+        hash_t = {}
+        for c in t:
+            if c in hash_t:
+                hash_t[c] += 1
+            else:
+                hash_t[c] = 1
+
+        hash_s = {}
+        for c in t:
+            hash_s[c] = 0
+
+        required, formed = len(hash_t), 0
+        min_length, result = float('inf'), ''
+        left = 0
+
+        for i in range(len(s)):
+            if s[i] in hash_s:
+                hash_s[s[i]] += 1
+
+            if s[i] in hash_s and hash_s[s[i]] == hash_t[s[i]]:
+                formed += 1
+
+            print(formed, required)
+
+            if formed == required:
+                for j in range(left, i+1):
+                    if (i-left+1) < min_length:
+                        min_length, result = i-left+1, s[left: i+1]
+
+                    if s[j] in hash_s:
+                        if hash_s[s[j]] > hash_t[s[j]]:
+                            hash_s[s[j]] -= 1
+                            left += 1
+                        else:
+                            break
+                    else:
+                        left += 1
+
+        return result
 
 
 # Example usage (for testing locally)
@@ -51,3 +88,7 @@ if __name__ == "__main__":
     # Test case 2
     result = solution.minWindow("a", "a")
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.minWindow("a", "aa")
+    print(f"Test 3: {result}")
