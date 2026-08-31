@@ -54,23 +54,19 @@ class Solution:
         for i in range(len(s)):
             if s[i] in hash_s:
                 hash_s[s[i]] += 1
+                if hash_s[s[i]] == hash_t[s[i]]:
+                    formed += 1
 
-            if s[i] in hash_s and hash_s[s[i]] == hash_t[s[i]]:
-                formed += 1
+            while formed == required:
+                if (i-left+1) < min_length:
+                    min_length, result = i-left+1, s[left: i+1]
 
-            if formed == required:
-                for j in range(left, i+1):
-                    if (i-left+1) < min_length:
-                        min_length, result = i-left+1, s[left: i+1]
+                if s[left] in hash_s:
+                    hash_s[s[left]] -= 1
+                    if hash_s[s[left]] < hash_t[s[left]]:
+                        formed -= 1
 
-                    if s[j] in hash_s:
-                        if hash_s[s[j]] > hash_t[s[j]]:
-                            hash_s[s[j]] -= 1
-                            left += 1
-                        else:
-                            break
-                    else:
-                        left += 1
+                left += 1
 
         return result
 
