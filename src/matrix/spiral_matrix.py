@@ -40,8 +40,7 @@ class Solution:
         while end_row >= start_row and end_col >= start_col:            
 
             # step 1
-            for j in range(start_col, end_col+1):
-                result.append(matrix[start_row][j])
+            result.extend(matrix[start_row][start_col:end_col+1])
             start_row += 1
             
             # step 2
@@ -52,10 +51,7 @@ class Solution:
             if start_row > end_row or start_col > end_col: break
             
             # step 3
-            for j in reversed(range(start_col, end_col+1)):
-                print(start_col, end_col+1)
-
-                result.append(matrix[end_row][j])
+            result.extend(reversed(matrix[end_row][start_col:end_col+1]))
             end_row -= 1
 
             # step 4
