@@ -37,8 +37,7 @@ class Solution:
         start_row, end_row = 0, row_size-1
         start_col, end_col = 0, col_size-1
         result = []
-        while end_row >= start_row and end_col >= start_col:            
-
+        while end_row >= start_row and end_col >= start_col:
             # step 1
             result.extend(matrix[start_row][start_col:end_col+1])
             start_row += 1
