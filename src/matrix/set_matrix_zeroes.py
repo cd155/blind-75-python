@@ -35,8 +35,24 @@ class Solution:
         Time Complexity: O(m * n)
         Space Complexity: O(1)
         """
-        # TODO: Implement solution
-        pass
+        row_zeros = set()
+        col_zeros = set()
+        m, n = len(matrix), len(matrix[0])
+        for i in range(m):
+            for j in range(n):
+                if matrix[i][j] == 0:
+                    row_zeros.add(i)
+                    col_zeros.add(j)
+
+        for row in row_zeros:
+            for j in range(n):
+                matrix[row][j] = 0
+
+        for col in col_zeros:
+            for i in range(m):
+                matrix[i][col] = 0
+
+        return matrix
 
 
 # Example usage (for testing locally)
