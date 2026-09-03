@@ -67,6 +67,7 @@ class Solution:
         for j in range(0, n):
             if matrix[0][j] == 0:
                 is_first_row_zero = True
+                break
 
         for i in range(1, m):
             for j in range(1, n):
