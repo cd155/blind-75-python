@@ -54,6 +54,46 @@ class Solution:
 
         return matrix
 
+    def set_zeros_space_one(self, matrix):
+        m, n = len(matrix), len(matrix[0])
+        is_first_row_zero = False
+        is_first_col_zero = False
+
+        for i in range(0, m):
+            if matrix[i][0] == 0:
+                is_first_col_zero = True
+                break
+
+        for j in range(0, n):
+            if matrix[0][j] == 0:
+                is_first_row_zero = True
+
+        for i in range(1, m):
+            for j in range(1, n):
+                if matrix[i][j] == 0:
+                    matrix[0][j] = 0
+                    matrix[i][0] = 0
+
+        for i in range(1, m):
+            if matrix[i][0] == 0:
+                for j in range(1, n):
+                    matrix[i][j] = 0
+
+        for j in range(1, n):
+            if matrix[0][j] == 0:
+                for i in range(1, m):
+                    matrix[i][j] = 0
+
+        if is_first_col_zero:
+            for i in range(0, m):
+                matrix[i][0] = 0
+
+        if is_first_row_zero:
+            for j in range(0, n):
+                matrix[0][j] = 0
+
+        return matrix
+
 
 # Example usage (for testing locally)
 if __name__ == "__main__":
