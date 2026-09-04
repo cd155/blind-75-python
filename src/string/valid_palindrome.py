@@ -21,6 +21,7 @@ Constraints:
 """
 
 
+from collections import deque
 class Solution:
     def isPalindrome(self, s):
         """
@@ -35,7 +36,19 @@ class Solution:
         Time Complexity: O(n)
         Space Complexity: O(1)
         """
-        # TODO: Implement solution
+        s_clean = [c.lower() for c in s]
+        s_clean = [c for c in s_clean if c.isalnum()]
+        size = len(s_clean)
+
+        if size%2 == 1:
+            return s_clean[0: size//2] == s_clean[size//2+1: size][::-1]
+        else:
+            return s_clean[0: size//2] == s_clean[size//2: size][::-1]
+
+    def is_palindrome_stack(self, s):
+        pass
+
+    def is_palindrome_pointers(self, s):
         pass
 
 
@@ -50,3 +63,7 @@ if __name__ == "__main__":
     # Test case 2
     result = solution.isPalindrome("race a car")
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.isPalindrome("0P")
+    print(f"Test 3: {result}")
