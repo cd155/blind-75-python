@@ -46,10 +46,45 @@ class Solution:
             return s_clean[0: size//2] == s_clean[size//2: size][::-1]
 
     def is_palindrome_stack(self, s):
-        pass
+        s_clean = [c.lower() for c in s]
+        s_clean = [c for c in s_clean if c.isalnum()]
+        size = len(s_clean)
+
+        first_half = s_clean[0: size//2]
+        second_half = s_clean[size//2: size]
+        if size%2 == 1:
+            second_half = s_clean[size//2+1: size]
+
+        for c in second_half:
+            if c == first_half[-1]:
+                first_half.pop()
+            else:
+                return False
+
+        if len(first_half) == 0:
+            return True
+        else:
+            return False
 
     def is_palindrome_pointers(self, s):
-        pass
+        left_p, right_p = 0, len(s)-1
+
+        while left_p < right_p :
+
+            if not s[left_p].isalnum():
+                left_p += 1
+                continue
+
+            if not s[right_p].isalnum():
+                right_p -= 1
+                continue
+
+            if s[left_p].lower() != s[right_p].lower():
+                return False
+            left_p += 1
+            right_p -= 1
+
+        return True 
 
 
 # Example usage (for testing locally)
@@ -57,7 +92,7 @@ if __name__ == "__main__":
     solution = Solution()
 
     # Test case 1
-    result = solution.isPalindrome("A man, a plan, a canal: Panama")
+    result = solution.is_palindrome_pointers("A man, a plan, a canal: Panama")
     print(f"Test 1: {result}")
 
     # Test case 2
