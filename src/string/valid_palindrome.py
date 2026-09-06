@@ -21,7 +21,6 @@ Constraints:
 """
 
 
-from collections import deque
 class Solution:
     def isPalindrome(self, s):
         """
