@@ -53,15 +53,37 @@ class Solution:
                 num_to_index[num] = 1
         return result
 
+    def two_sum_two_pointers(self, nums, target):
+        sorted_nums = sorted(nums)
+        left, right = 0, len(nums)-1
+        result = []
+
+        while left < right:
+            sum_two = sorted_nums[left] + sorted_nums[right]
+            if sum_two < target:
+                left += 1
+            elif sum_two > target:
+                right -= 1
+            else:
+                result.append([sorted_nums[left], sorted_nums[right]])
+                left += 1
+                right -= 1
+
+        return result
+
 
 # Example usage (for testing locally)
 if __name__ == "__main__":
     solution = Solution()
 
     # Test case 1
-    result = solution.twoSum([2, 7, 11, 15], 9)
+    result = solution.two_sum_two_pointers([2, 7, 11, 15], 9)
     print(f"Test 1: {result}")
 
     # Test case 2
-    result = solution.twoSum([3, 2, 4], 6)
+    result = solution.two_sum_two_pointers([3, 2, 4], 6)
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.two_sum_two_pointers([0, 0, 0, 1], 0)
+    print(f"Test 3: {result}")
