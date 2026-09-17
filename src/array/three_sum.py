@@ -33,8 +33,43 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        # slow version N^3
+        first_p, second_p, third_p = 0, 1, 2
+        size = len(nums)
+        result = []
+
+        while third_p < size:
+            third_p_local = third_p
+            for i in range(second_p, size):
+                goal = nums[first_p] + nums[i]
+                for j in range(third_p_local, size):
+                    if nums[j] + goal == 0:
+                        new_list = sorted([nums[first_p], nums[i], nums[j]])
+                        if new_list not in result:
+                            result.append(new_list)
+                third_p_local += 1
+            first_p += 1 
+            second_p += 1
+            third_p += 1
+        return result
+
+    def three_sum_fast(self, nums):
+        p = 1
+        size = len(nums)
+        sorted_nums = sorted(nums)
+        result = []
+        for i in range(size):
+            records = set()
+            for j in range(p, size):
+                complement = -(sorted_nums[i] + sorted_nums[j]) 
+                if complement in records:
+                    new_list = sorted([sorted_nums[i], sorted_nums[j], complement])
+                    if new_list not in result:
+                        result.append(new_list)
+                else:
+                    records.add(sorted_nums[j])
+            p += 1
+        return result
 
 
 # Example usage (for testing locally)
@@ -42,9 +77,13 @@ if __name__ == "__main__":
     solution = Solution()
 
     # Test case 1
-    result = solution.threeSum([-1, 0, 1, 2, -1, -4])
+    result = solution.three_sum_fast([-1, 0, 1, 2, -1, -4])
     print(f"Test 1: {result}")
 
     # Test case 2
-    result = solution.threeSum([0, 1, 1])
+    result = solution.three_sum_fast([0, 1, 1])
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.three_sum_fast([2, -1, -4])
+    print(f"Test 3: {result}")
