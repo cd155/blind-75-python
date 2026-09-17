@@ -12,7 +12,7 @@ sys.path.insert(0, str(src_path))
 
 # Import using importlib to avoid conflicts with built-in modules
 import importlib.util
-spec = importlib.util.spec_from_file_location("search_in_rotated_sorted_array", src_path / "array" / "search_in_rotated_sorted_array.py")
+spec = importlib.util.spec_from_file_location("search_in_rotated_sorted_array", src_path / "binary_search" / "search_in_rotated_sorted_array.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 Solution = module.Solution

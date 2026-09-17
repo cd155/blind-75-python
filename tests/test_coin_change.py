@@ -12,7 +12,7 @@ sys.path.insert(0, str(src_path))
 
 # Import using importlib to avoid conflicts with built-in modules
 import importlib.util
-spec = importlib.util.spec_from_file_location("coin_change", src_path / "dynamic_programming" / "coin_change.py")
+spec = importlib.util.spec_from_file_location("coin_change", src_path / "dp_1d" / "coin_change.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 Solution = module.Solution

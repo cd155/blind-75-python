@@ -12,7 +12,7 @@ sys.path.insert(0, str(src_path))
 
 # Import using importlib to avoid conflicts with built-in modules
 import importlib.util
-spec = importlib.util.spec_from_file_location("palindromic_substrings", src_path / "string" / "palindromic_substrings.py")
+spec = importlib.util.spec_from_file_location("palindromic_substrings", src_path / "dp_1d" / "palindromic_substrings.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 Solution = module.Solution

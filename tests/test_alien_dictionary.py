@@ -12,7 +12,7 @@ sys.path.insert(0, str(src_path))
 
 # Import using importlib to avoid conflicts with built-in modules
 import importlib.util
-spec = importlib.util.spec_from_file_location("alien_dictionary", src_path / "graph" / "alien_dictionary.py")
+spec = importlib.util.spec_from_file_location("alien_dictionary", src_path / "advanced_graphs" / "alien_dictionary.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 Solution = module.Solution

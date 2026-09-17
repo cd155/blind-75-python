@@ -12,7 +12,7 @@ sys.path.insert(0, str(src_path))
 
 # Import using importlib to avoid conflicts with built-in modules
 import importlib.util
-spec = importlib.util.spec_from_file_location("invert_binary_tree", src_path / "tree" / "invert_binary_tree.py")
+spec = importlib.util.spec_from_file_location("invert_binary_tree", src_path / "trees" / "invert_binary_tree.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 Solution = module.Solution

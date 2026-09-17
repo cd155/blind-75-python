@@ -12,7 +12,7 @@ sys.path.insert(0, str(src_path))
 
 # Import using importlib to avoid conflicts with built-in modules
 import importlib.util
-spec = importlib.util.spec_from_file_location("minimum_window_substring", src_path / "string" / "minimum_window_substring.py")
+spec = importlib.util.spec_from_file_location("minimum_window_substring", src_path / "sliding_window" / "minimum_window_substring.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 Solution = module.Solution

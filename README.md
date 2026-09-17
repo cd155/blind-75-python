@@ -8,20 +8,28 @@ This repository contains Python solutions to the Blind 75 list - a curated list 
 
 ## 🗂️ Structure
 
-Solutions are organized by problem category:
+Solutions are organized by the [NeetCode Blind 75](https://neetcode.io/practice/practice/blind75) categories:
 
 ```
 src/
-├── array/              # Array problems (10)
-├── binary/             # Binary/Bit Manipulation problems (5)
-├── dynamic_programming/ # Dynamic Programming problems (11)
-├── graph/              # Graph problems (8)
-├── heap/               # Heap problems (2)
-├── interval/           # Interval problems (5)
-├── linked_list/        # Linked List problems (6)
-├── matrix/             # Matrix problems (4)
-├── string/             # String problems (10)
-└── tree/               # Tree problems (14)
+├── arrays_and_hashing/  # Arrays & Hashing (8)
+├── two_pointers/        # Two Pointers (3)
+├── sliding_window/      # Sliding Window (4)
+├── stack/               # Stack (1)
+├── binary_search/       # Binary Search (2)
+├── linked_list/         # Linked List (6)
+├── trees/               # Trees (11)
+├── heap_priority_queue/ # Heap / Priority Queue (1)
+├── backtracking/        # Backtracking (2)
+├── tries/               # Tries (3)
+├── graphs/              # Graphs (6)
+├── advanced_graphs/     # Advanced Graphs (1)
+├── dp_1d/               # 1-D Dynamic Programming (10)
+├── dp_2d/               # 2-D Dynamic Programming (2)
+├── greedy/              # Greedy (2)
+├── intervals/           # Intervals (5)
+├── math_and_geometry/   # Math & Geometry (3)
+└── bit_manipulation/    # Bit Manipulation (5)
 ```
 
 ## 🚀 Getting Started
@@ -64,111 +72,127 @@ pytest -v
 Each solution file can be run independently:
 
 ```bash
-python src/array/two_sum.py
+python src/arrays_and_hashing/two_sum.py
 ```
 
 ## 📝 Problem Categories
 
-### Array (10 problems)
-- Two Sum
-- Best Time to Buy and Sell Stock
+### Arrays & Hashing (8 problems)
 - Contains Duplicate
+- Valid Anagram
+- Two Sum
+- Group Anagrams
+- Top K Frequent Elements
+- Encode and Decode Strings
 - Product of Array Except Self
-- Maximum Subarray
-- Maximum Product Subarray
-- Find Minimum in Rotated Sorted Array
-- Search in Rotated Sorted Array
+- Longest Consecutive Sequence
+
+### Two Pointers (3 problems)
+- Valid Palindrome
 - 3Sum
 - Container With Most Water
 
-### Binary (5 problems)
-- Sum of Two Integers
-- Number of 1 Bits
-- Counting Bits
-- Missing Number
-- Reverse Bits
+### Sliding Window (4 problems)
+- Best Time to Buy and Sell Stock
+- Longest Substring Without Repeating Characters
+- Longest Repeating Character Replacement
+- Minimum Window Substring
 
-### Dynamic Programming (11 problems)
-- Climbing Stairs
-- Coin Change
-- Longest Increasing Subsequence
-- Longest Common Subsequence
-- Word Break
+### Stack (1 problem)
+- Valid Parentheses
+
+### Binary Search (2 problems)
+- Find Minimum in Rotated Sorted Array
+- Search in Rotated Sorted Array
+
+### Linked List (6 problems)
+- Reverse Linked List
+- Merge Two Sorted Lists
+- Reorder List
+- Remove Nth Node From End of List
+- Linked List Cycle
+- Merge k Sorted Lists
+
+### Trees (11 problems)
+- Invert Binary Tree
+- Maximum Depth of Binary Tree
+- Same Tree
+- Subtree of Another Tree
+- Lowest Common Ancestor of a Binary Search Tree
+- Binary Tree Level Order Traversal
+- Validate Binary Search Tree
+- Kth Smallest Element in a BST
+- Construct Binary Tree from Preorder and Inorder Traversal
+- Binary Tree Maximum Path Sum
+- Serialize and Deserialize Binary Tree
+
+### Heap / Priority Queue (1 problem)
+- Find Median from Data Stream
+
+### Backtracking (2 problems)
 - Combination Sum
-- House Robber
-- House Robber II
-- Decode Ways
-- Unique Paths
-- Jump Game
+- Word Search
 
-### Graph (8 problems)
-- Clone Graph
-- Course Schedule
-- Pacific Atlantic Water Flow
+### Tries (3 problems)
+- Implement Trie (Prefix Tree)
+- Design Add and Search Words Data Structure
+- Word Search II
+
+### Graphs (6 problems)
 - Number of Islands
-- Longest Consecutive Sequence
-- Alien Dictionary
+- Clone Graph
+- Pacific Atlantic Water Flow
+- Course Schedule
 - Graph Valid Tree
 - Number of Connected Components in an Undirected Graph
 
-### Heap (2 problems)
-- Top K Frequent Elements
-- Find Median from Data Stream
+### Advanced Graphs (1 problem)
+- Alien Dictionary
 
-### Interval (5 problems)
+### 1-D Dynamic Programming (10 problems)
+- Climbing Stairs
+- House Robber
+- House Robber II
+- Longest Palindromic Substring
+- Palindromic Substrings
+- Decode Ways
+- Coin Change
+- Maximum Product Subarray
+- Word Break
+- Longest Increasing Subsequence
+
+### 2-D Dynamic Programming (2 problems)
+- Unique Paths
+- Longest Common Subsequence
+
+### Greedy (2 problems)
+- Maximum Subarray
+- Jump Game
+
+### Intervals (5 problems)
 - Insert Interval
 - Merge Intervals
 - Non-overlapping Intervals
 - Meeting Rooms
 - Meeting Rooms II
 
-### Linked List (6 problems)
-- Reverse Linked List
-- Linked List Cycle
-- Merge Two Sorted Lists
-- Merge k Sorted Lists
-- Remove Nth Node From End of List
-- Reorder List
-
-### Matrix (4 problems)
-- Set Matrix Zeroes
-- Spiral Matrix
+### Math & Geometry (3 problems)
 - Rotate Image
-- Word Search
+- Spiral Matrix
+- Set Matrix Zeroes
 
-### String (10 problems)
-- Longest Substring Without Repeating Characters
-- Longest Repeating Character Replacement
-- Minimum Window Substring
-- Valid Anagram
-- Group Anagrams
-- Valid Parentheses
-- Valid Palindrome
-- Longest Palindromic Substring
-- Palindromic Substrings
-- Encode and Decode Strings
-
-### Tree (14 problems)
-- Maximum Depth of Binary Tree
-- Same Tree
-- Invert Binary Tree
-- Binary Tree Maximum Path Sum
-- Binary Tree Level Order Traversal
-- Serialize and Deserialize Binary Tree
-- Subtree of Another Tree
-- Construct Binary Tree from Preorder and Inorder Traversal
-- Validate Binary Search Tree
-- Kth Smallest Element in a BST
-- Lowest Common Ancestor of a BST
-- Implement Trie (Prefix Tree)
-- Add and Search Word
-- Word Search II
+### Bit Manipulation (5 problems)
+- Number of 1 Bits
+- Counting Bits
+- Reverse Bits
+- Missing Number
+- Sum of Two Integers
 
 ## 🔗 Resources
 
 - [Original Blind 75 List](https://www.teamblind.com/post/New-Year-Gift---Curated-List-of-Top-75-LeetCode-Questions-to-Save-Your-Time-OaM1orEU)
 - [LeetCode](https://leetcode.com/)
-- [NeetCode](https://neetcode.io/) - Video explanations for Blind 75
+- [NeetCode Blind 75](https://neetcode.io/practice/practice/blind75) - Category roadmap and video explanations
 
 ## 📄 License
 
