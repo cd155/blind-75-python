@@ -42,6 +42,17 @@ class Solution:
                 return [num_to_index[complement], i]
             num_to_index[num] = i
 
+    def two_sum_list(self, nums, target):
+        num_to_index = {}
+        result = []
+        for num in nums:
+            complement = target - num
+            if complement in num_to_index:
+                result.append([num, complement])
+            else:    
+                num_to_index[num] = 1
+        return result
+
 
 # Example usage (for testing locally)
 if __name__ == "__main__":
