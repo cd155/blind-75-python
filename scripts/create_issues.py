@@ -61,6 +61,33 @@ def extract_problems(src_dir="src"):
     return problems
 
 
+CATEGORY_DISPLAY_NAMES = {
+    "arrays_and_hashing": "Arrays & Hashing",
+    "two_pointers": "Two Pointers",
+    "sliding_window": "Sliding Window",
+    "stack": "Stack",
+    "binary_search": "Binary Search",
+    "linked_list": "Linked List",
+    "trees": "Trees",
+    "heap_priority_queue": "Heap / Priority Queue",
+    "backtracking": "Backtracking",
+    "tries": "Tries",
+    "graphs": "Graphs",
+    "advanced_graphs": "Advanced Graphs",
+    "dp_1d": "1-D Dynamic Programming",
+    "dp_2d": "2-D Dynamic Programming",
+    "greedy": "Greedy",
+    "intervals": "Intervals",
+    "math_and_geometry": "Math & Geometry",
+    "bit_manipulation": "Bit Manipulation",
+}
+
+
+def get_category_display(category):
+    """Get the human-readable NeetCode category name for a src/ directory."""
+    return CATEGORY_DISPLAY_NAMES.get(category, category.replace("_", " ").title())
+
+
 LEETCODE_SLUG_OVERRIDES = {
     "three_sum.py": "3sum",
     "add_and_search_word.py": "design-add-and-search-words-data-structure",
@@ -80,7 +107,7 @@ def get_leetcode_slug(filename):
 
 def build_issue_body(problem):
     """Build the issue body markdown for a problem."""
-    category_display = problem["category"].replace("_", " ").title()
+    category_display = get_category_display(problem["category"])
     filepath = problem["filepath"]
     slug = get_leetcode_slug(problem["filename"])
 
@@ -134,16 +161,24 @@ def create_github_issue(token, repo, title, body, labels):
 def ensure_labels_exist(token, repo, labels):
     """Ensure all required labels exist in the repository."""
     label_colors = {
-        "array": "7057ff",
-        "binary": "008672",
-        "dynamic programming": "d73a4a",
-        "graph": "0075ca",
-        "heap": "cfd3d7",
-        "interval": "a2eeef",
+        "arrays and hashing": "7057ff",
+        "two pointers": "008672",
+        "sliding window": "d73a4a",
+        "stack": "0075ca",
+        "binary search": "cfd3d7",
         "linked list": "e4e669",
-        "matrix": "d876e3",
-        "string": "f9d0c4",
-        "tree": "0e8a16",
+        "trees": "0e8a16",
+        "heap priority queue": "a2eeef",
+        "backtracking": "d876e3",
+        "tries": "f9d0c4",
+        "graphs": "1d76db",
+        "advanced graphs": "5319e7",
+        "dp 1d": "b60205",
+        "dp 2d": "e99695",
+        "greedy": "c2e0c6",
+        "intervals": "bfd4f2",
+        "math and geometry": "fef2c0",
+        "bit manipulation": "006b75",
         "blind-75": "fbca04",
     }
 
@@ -152,7 +187,11 @@ def ensure_labels_exist(token, repo, labels):
             continue
         url = f"https://api.github.com/repos/{repo}/labels"
         data = json.dumps(
-            {"name": label, "color": color, "description": f"Blind 75 - {label.title()} problems"}
+            {
+                "name": label,
+                "color": color,
+                "description": f"Blind 75 - {get_category_display(label.replace(' ', '_'))} problems",
+            }
         ).encode("utf-8")
 
         req = urllib.request.Request(

@@ -12,7 +12,7 @@ sys.path.insert(0, str(src_path))
 
 # Import using importlib to avoid conflicts with built-in modules
 import importlib.util
-spec = importlib.util.spec_from_file_location("number_of_connected_components_in_an_undirected_graph", src_path / "graph" / "number_of_connected_components_in_an_undirected_graph.py")
+spec = importlib.util.spec_from_file_location("number_of_connected_components_in_an_undirected_graph", src_path / "graphs" / "number_of_connected_components_in_an_undirected_graph.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 Solution = module.Solution

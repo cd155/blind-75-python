@@ -12,7 +12,7 @@ sys.path.insert(0, str(src_path))
 
 # Import using importlib to avoid conflicts with built-in modules
 import importlib.util
-spec = importlib.util.spec_from_file_location("add_and_search_word", src_path / "tree" / "add_and_search_word.py")
+spec = importlib.util.spec_from_file_location("add_and_search_word", src_path / "tries" / "add_and_search_word.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 WordDictionary = module.WordDictionary

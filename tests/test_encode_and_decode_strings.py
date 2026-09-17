@@ -12,7 +12,7 @@ sys.path.insert(0, str(src_path))
 
 # Import using importlib to avoid conflicts with built-in modules
 import importlib.util
-spec = importlib.util.spec_from_file_location("encode_and_decode_strings", src_path / "string" / "encode_and_decode_strings.py")
+spec = importlib.util.spec_from_file_location("encode_and_decode_strings", src_path / "arrays_and_hashing" / "encode_and_decode_strings.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 Codec = module.Codec

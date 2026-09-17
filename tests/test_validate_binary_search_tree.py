@@ -12,7 +12,7 @@ sys.path.insert(0, str(src_path))
 
 # Import using importlib to avoid conflicts with built-in modules
 import importlib.util
-spec = importlib.util.spec_from_file_location("validate_binary_search_tree", src_path / "tree" / "validate_binary_search_tree.py")
+spec = importlib.util.spec_from_file_location("validate_binary_search_tree", src_path / "trees" / "validate_binary_search_tree.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 Solution = module.Solution

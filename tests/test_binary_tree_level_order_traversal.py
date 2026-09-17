@@ -12,7 +12,7 @@ sys.path.insert(0, str(src_path))
 
 # Import using importlib to avoid conflicts with built-in modules
 import importlib.util
-spec = importlib.util.spec_from_file_location("binary_tree_level_order_traversal", src_path / "tree" / "binary_tree_level_order_traversal.py")
+spec = importlib.util.spec_from_file_location("binary_tree_level_order_traversal", src_path / "trees" / "binary_tree_level_order_traversal.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 Solution = module.Solution

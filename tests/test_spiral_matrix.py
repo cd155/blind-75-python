@@ -12,7 +12,7 @@ sys.path.insert(0, str(src_path))
 
 # Import using importlib to avoid conflicts with built-in modules
 import importlib.util
-spec = importlib.util.spec_from_file_location("spiral_matrix", src_path / "matrix" / "spiral_matrix.py")
+spec = importlib.util.spec_from_file_location("spiral_matrix", src_path / "math_and_geometry" / "spiral_matrix.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 Solution = module.Solution

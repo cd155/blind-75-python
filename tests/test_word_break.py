@@ -12,7 +12,7 @@ sys.path.insert(0, str(src_path))
 
 # Import using importlib to avoid conflicts with built-in modules
 import importlib.util
-spec = importlib.util.spec_from_file_location("word_break", src_path / "dynamic_programming" / "word_break.py")
+spec = importlib.util.spec_from_file_location("word_break", src_path / "dp_1d" / "word_break.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 Solution = module.Solution

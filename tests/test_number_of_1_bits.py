@@ -12,7 +12,7 @@ sys.path.insert(0, str(src_path))
 
 # Import using importlib to avoid conflicts with built-in modules
 import importlib.util
-spec = importlib.util.spec_from_file_location("number_of_1_bits", src_path / "binary" / "number_of_1_bits.py")
+spec = importlib.util.spec_from_file_location("number_of_1_bits", src_path / "bit_manipulation" / "number_of_1_bits.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 Solution = module.Solution

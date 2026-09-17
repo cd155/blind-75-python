@@ -12,7 +12,7 @@ sys.path.insert(0, str(src_path))
 
 # Import using importlib to avoid conflicts with built-in modules
 import importlib.util
-spec = importlib.util.spec_from_file_location("find_median_from_data_stream", src_path / "heap" / "find_median_from_data_stream.py")
+spec = importlib.util.spec_from_file_location("find_median_from_data_stream", src_path / "heap_priority_queue" / "find_median_from_data_stream.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 MedianFinder = module.MedianFinder

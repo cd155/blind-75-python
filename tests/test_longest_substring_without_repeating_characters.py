@@ -12,7 +12,7 @@ sys.path.insert(0, str(src_path))
 
 # Import using importlib to avoid conflicts with built-in modules
 import importlib.util
-spec = importlib.util.spec_from_file_location("longest_substring_without_repeating_characters", src_path / "string" / "longest_substring_without_repeating_characters.py")
+spec = importlib.util.spec_from_file_location("longest_substring_without_repeating_characters", src_path / "sliding_window" / "longest_substring_without_repeating_characters.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 Solution = module.Solution

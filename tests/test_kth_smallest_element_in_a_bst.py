@@ -12,7 +12,7 @@ sys.path.insert(0, str(src_path))
 
 # Import using importlib to avoid conflicts with built-in modules
 import importlib.util
-spec = importlib.util.spec_from_file_location("kth_smallest_element_in_a_bst", src_path / "tree" / "kth_smallest_element_in_a_bst.py")
+spec = importlib.util.spec_from_file_location("kth_smallest_element_in_a_bst", src_path / "trees" / "kth_smallest_element_in_a_bst.py")
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
 Solution = module.Solution
