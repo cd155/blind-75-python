@@ -102,7 +102,7 @@ class Trie:
                 return False
             else:
                 cur = cur.children[c]
-        return not cur.is_end
+        return True
 
     def pretty_print(self, root, word):
         if root.is_end:
@@ -122,3 +122,8 @@ if __name__ == "__main__":
     print(f"StartsWith 'app': {trie.startsWith('app')}")  # True
     trie.insert("app")
     print(f"Search 'app': {trie.search('app')}")  # True
+
+    trie = Trie()
+    trie.insert("a")
+    print(f"Search 'a': {trie.search('a')}")  # True
+    print(f"Search 'a': {trie.startsWith('a')}")  # True
