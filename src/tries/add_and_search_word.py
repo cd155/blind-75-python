@@ -82,6 +82,7 @@ class WordDictionary:
                     for _, v in node.children.items():
                         if dfs(v, i+1):
                             return True
+                    return False
                 elif word[i] in node.children:
                     return dfs(node.children[word[i]], i+1)
                 else:
@@ -96,7 +97,12 @@ if __name__ == "__main__":
     wordDictionary.addWord("bad")
     wordDictionary.addWord("dad")
     wordDictionary.addWord("mad")
+    wordDictionary.addWord("a")
+    wordDictionary.addWord("c")
+    wordDictionary.addWord("cat")
     print(f"Search 'pad': {wordDictionary.search('pad')}")  # False
     print(f"Search 'bad': {wordDictionary.search('bad')}")  # True
     print(f"Search '.ad': {wordDictionary.search('.ad')}")  # True
     print(f"Search 'b..': {wordDictionary.search('b..')}")  # True
+    print(f"Search '.b': {wordDictionary.search('a.')}")  # False
+    print(f"Search '.b': {wordDictionary.search('c.z')}")  # False
