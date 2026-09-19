@@ -39,7 +39,7 @@ class Trie:
         """
         self.root = TrieNode()
 
-    def insert(self, word):
+    def insert(self, word: str) -> None:
         """
         Insert a word into the trie.
 
@@ -49,18 +49,12 @@ class Trie:
         Time Complexity: O(m) where m is word length
         Space Complexity: O(m)
         """
-        end_index = len(word)-1
         cur = self.root
-        for i, c in enumerate(word):
-            new_tri = TrieNode()
+        for c in word:
             if c not in cur.children:
-                cur.children[c] = new_tri
-                cur = new_tri
-            else:
-                cur = cur.children[c]
-
-            if i == end_index:
-                cur.is_end = True
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+        cur.is_end = True
 
     def search(self, word):
         """
@@ -79,8 +73,7 @@ class Trie:
         for c in word:
             if c not in cur.children:
                 return False
-            else:
-                cur = cur.children[c]
+            cur = cur.children[c]
         return cur.is_end
 
     def startsWith(self, prefix):
@@ -100,8 +93,7 @@ class Trie:
         for c in prefix:
             if c not in cur.children:
                 return False
-            else:
-                cur = cur.children[c]
+            cur = cur.children[c]
         return True
 
     def pretty_print(self, root, word):
