@@ -22,6 +22,12 @@ Constraints:
 """
 
 
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_end = False
+
+
 class WordDictionary:
     def __init__(self):
         """
@@ -30,8 +36,7 @@ class WordDictionary:
         Time Complexity: O(1)
         Space Complexity: O(1)
         """
-        # TODO: Implement initialization
-        pass
+        self.root = TrieNode()
 
     def addWord(self, word):
         """
@@ -43,8 +48,18 @@ class WordDictionary:
         Time Complexity: O(m) where m is word length
         Space Complexity: O(m)
         """
-        # TODO: Implement addWord
-        pass
+        end_index = len(word)-1
+        cur = self.root
+        for i, c in enumerate(word):
+            new_tri = TrieNode()
+            if c not in cur.children:
+                cur.children[c] = new_tri
+                cur = new_tri
+            else:
+                cur = cur.children[c]
+
+            if i == end_index:
+                cur.is_end = True
 
     def search(self, word):
         """
@@ -59,9 +74,21 @@ class WordDictionary:
         Time Complexity: O(m) for words without '.', O(m * 26^k) worst case
         Space Complexity: O(m) for recursion
         """
-        # TODO: Implement search
-        pass
+        max_len = len(word)
 
+        def dfs(node, i):
+            if i < max_len:
+                if word[i] == '.':
+                    for _, v in node.children.items():
+                        if dfs(v, i+1):
+                            return True
+                elif word[i] in node.children:
+                    return dfs(node.children[word[i]], i+1)
+                else:
+                    return False
+            return node.is_end
+
+        return dfs(self.root, 0)
 
 # Example usage (for testing locally)
 if __name__ == "__main__":
