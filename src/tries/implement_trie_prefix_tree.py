@@ -56,7 +56,7 @@ class Trie:
             cur = cur.children[c]
         cur.is_end = True
 
-    def search(self, word):
+    def search(self, word: str) -> bool:
         """
         Search for a word in the trie.
 
@@ -69,14 +69,10 @@ class Trie:
         Time Complexity: O(m)
         Space Complexity: O(1)
         """
-        cur = self.root
-        for c in word:
-            if c not in cur.children:
-                return False
-            cur = cur.children[c]
-        return cur.is_end
+        node = self._find_word(word) 
+        return node.is_end if node else False
 
-    def startsWith(self, prefix):
+    def startsWith(self, prefix) -> bool:
         """
         Check if any word starts with the given prefix.
 
@@ -89,14 +85,17 @@ class Trie:
         Time Complexity: O(m)
         Space Complexity: O(1)
         """
-        cur = self.root
-        for c in prefix:
-            if c not in cur.children:
-                return False
-            cur = cur.children[c]
-        return True
+        return True if self._find_word(prefix) else False
 
-    def pretty_print(self, root, word):
+    def _find_word(self, word) -> TrieNode | None:
+        cur = self.root
+        for c in word:
+            if c not in cur.children:
+                return None
+            cur = cur.children[c]
+        return cur
+
+    def pretty_print(self, root, word) -> None:
         if root.is_end:
             print(word)
 
