@@ -39,7 +39,7 @@ class Trie:
         """
         self.root = TrieNode()
 
-    def insert(self, word):
+    def insert(self, word: str) -> None:
         """
         Insert a word into the trie.
 
@@ -49,20 +49,14 @@ class Trie:
         Time Complexity: O(m) where m is word length
         Space Complexity: O(m)
         """
-        end_index = len(word)-1
         cur = self.root
-        for i, c in enumerate(word):
-            new_tri = TrieNode()
+        for c in word:
             if c not in cur.children:
-                cur.children[c] = new_tri
-                cur = new_tri
-            else:
-                cur = cur.children[c]
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+        cur.is_end = True
 
-            if i == end_index:
-                cur.is_end = True
-
-    def search(self, word):
+    def search(self, word: str) -> bool:
         """
         Search for a word in the trie.
 
@@ -75,15 +69,10 @@ class Trie:
         Time Complexity: O(m)
         Space Complexity: O(1)
         """
-        cur = self.root
-        for c in word:
-            if c not in cur.children:
-                return False
-            else:
-                cur = cur.children[c]
-        return cur.is_end
+        node = self._find_word(word) 
+        return node.is_end if node else False
 
-    def startsWith(self, prefix):
+    def startsWith(self, prefix) -> bool:
         """
         Check if any word starts with the given prefix.
 
@@ -96,15 +85,17 @@ class Trie:
         Time Complexity: O(m)
         Space Complexity: O(1)
         """
-        cur = self.root
-        for c in prefix:
-            if c not in cur.children:
-                return False
-            else:
-                cur = cur.children[c]
-        return True
+        return True if self._find_word(prefix) else False
 
-    def pretty_print(self, root, word):
+    def _find_word(self, word) -> TrieNode | None:
+        cur = self.root
+        for c in word:
+            if c not in cur.children:
+                return None
+            cur = cur.children[c]
+        return cur
+
+    def pretty_print(self, root, word) -> None:
         if root.is_end:
             print(word)
 
