@@ -48,18 +48,12 @@ class WordDictionary:
         Time Complexity: O(m) where m is word length
         Space Complexity: O(m)
         """
-        end_index = len(word)-1
         cur = self.root
-        for i, c in enumerate(word):
-            new_tri = TrieNode()
+        for c in word:
             if c not in cur.children:
-                cur.children[c] = new_tri
-                cur = new_tri
-            else:
-                cur = cur.children[c]
-
-            if i == end_index:
-                cur.is_end = True
+                cur.children[c] = TrieNode()            
+            cur = cur.children[c]
+        cur.is_end = True
 
     def search(self, word):
         """
