@@ -23,9 +23,13 @@ Constraints:
 - board[i][j] is a lowercase English letter.
 - 1 <= words.length <= 3 * 10^4
 """
+from implement_trie_prefix_tree import Trie
 
 
 class Solution:
+    def __init__(self):
+        self.trie = Trie() 
+
     def findWords(self, board, words):
         """
         Find all words from the list that exist in the board.
@@ -42,6 +46,49 @@ class Solution:
         """
         # TODO: Implement solution
         pass
+
+    def insert_char(self, board):
+        all_paths = []
+        m = len(board)
+        n = len(board[0])
+
+        def dfs(i, j, visited, path):
+            can_move = False
+            path.append((i, j))
+            visited.add((i,j))
+
+            next_i, next_j = i+1, j
+            if 0<=next_i<m and 0<=next_j<n and (next_i,next_j) not in visited:
+                can_move = True
+                dfs(i+1, j, visited, path)
+
+            next_i, next_j = i, j+1
+            if 0<=next_i<m and 0<=next_j<n and (next_i,next_j) not in visited:
+                can_move = True
+                dfs(i, j+1, visited, path)  
+
+            next_i, next_j = i-1, j
+            if 0<=next_i<m and 0<=next_j<n and (next_i,next_j) not in visited:
+                can_move = True
+                dfs(i-1, j, visited, path)
+
+            next_i, next_j = i, j-1
+            if 0<=next_i<m and 0<=next_j<n and (next_i,next_j) not in visited:
+                can_move = True
+                dfs(i, j-1, visited, path)
+
+            if not can_move:
+                all_paths.append(list(path))
+            
+            visited.remove((i,j))
+            path.pop()
+
+        print(all_paths)
+
+        # for i in range(m):
+        #     for j in range(n):
+        #         dfs(i, j, set())
+        dfs(0, 0, set(), [])
 
 
 # Example usage (for testing locally)
