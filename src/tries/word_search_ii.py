@@ -44,51 +44,45 @@ class Solution:
         Time Complexity: O(m * n * 4^L) where L is max word length
         Space Complexity: O(k) where k is total characters in words
         """
-        # TODO: Implement solution
-        pass
+        all_possible_words = self.find_all_words(board)
+        for p_word in all_possible_words:
+            self.trie.insert(p_word)
 
-    def insert_char(self, board):
+        result = []
+        for f_w in words:
+            if self.trie.startsWith(f_w):
+                result.append(f_w)
+        return result
+
+    def find_all_words(self, board):
         all_paths = []
         m = len(board)
         n = len(board[0])
 
         def dfs(i, j, visited, path):
             can_move = False
-            path.append((i, j))
+            path.append(board[i][j])
             visited.add((i,j))
 
-            next_i, next_j = i+1, j
-            if 0<=next_i<m and 0<=next_j<n and (next_i,next_j) not in visited:
-                can_move = True
-                dfs(i+1, j, visited, path)
+            ds = [(1,0), (0,1), (-1,0), (0,-1)]
 
-            next_i, next_j = i, j+1
-            if 0<=next_i<m and 0<=next_j<n and (next_i,next_j) not in visited:
-                can_move = True
-                dfs(i, j+1, visited, path)  
-
-            next_i, next_j = i-1, j
-            if 0<=next_i<m and 0<=next_j<n and (next_i,next_j) not in visited:
-                can_move = True
-                dfs(i-1, j, visited, path)
-
-            next_i, next_j = i, j-1
-            if 0<=next_i<m and 0<=next_j<n and (next_i,next_j) not in visited:
-                can_move = True
-                dfs(i, j-1, visited, path)
+            for d_i, d_j in ds:
+                next_i, next_j = i+d_i, j+d_j
+                if 0<=next_i<m and 0<=next_j<n and (next_i,next_j) not in visited:
+                    can_move = True
+                    dfs(next_i, next_j, visited, path)
 
             if not can_move:
                 all_paths.append(list(path))
-            
-            visited.remove((i,j))
+
             path.pop()
+            visited.remove((i,j))
+        
+        for i in range(m):
+            for j in range(n):
+                dfs(i, j, set(), [])
 
-        print(all_paths)
-
-        # for i in range(m):
-        #     for j in range(n):
-        #         dfs(i, j, set())
-        dfs(0, 0, set(), [])
+        return all_paths
 
 
 # Example usage (for testing locally)
