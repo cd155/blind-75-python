@@ -25,6 +25,10 @@ Constraints:
 """
 from implement_trie_prefix_tree import Trie
 
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.word = None
 
 class Solution:
     def __init__(self):
@@ -111,7 +115,46 @@ class Solution:
 
         return all_paths
 
+    def find_words_standard(self, board, words):
+        root = TrieNode()
+        for w in words:
+            node = root
+            for c in w:
+                if c not in node.children:
+                    node.children[c] = TrieNode()
+                node = node.children[c]
+            node.word = w
 
+        result = []
+        m = len(board)
+        n = len(board[0])
+
+        def dfs(i, j, parent_node):
+            char = board[i][j]
+            cur_node = parent_node.children[char]
+
+            if cur_node.word:
+                result.append(cur_node.word)
+                cur_node.word = None
+
+            board[i][j] = '#'
+            ds = [(1,0), (0,1), (-1,0), (0,-1)]
+            for d_i, d_j in ds:
+                next_i, next_j = i+d_i, j+d_j
+                if 0<=next_i<m and 0<=next_j<n and board[next_i][next_j] in cur_node.children:
+                    dfs(next_i, next_j, cur_node)
+            board[i][j] = char
+
+            if not cur_node.children:
+                del parent_node.children[char]
+
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] in root.children:
+                    dfs(i, j, root)
+
+        return result
+    
 # Example usage (for testing locally)
 if __name__ == "__main__":
     solution = Solution()
@@ -119,11 +162,11 @@ if __name__ == "__main__":
     # Test case 1
     board = [["o", "a", "a", "n"], ["e", "t", "a", "e"], ["i", "h", "k", "r"], ["i", "f", "l", "v"]]
     words = ["oath", "pea", "eat", "rain"]
-    result = solution.findWords(board, words)
+    result = solution.find_words_standard(board, words)
     print(f"Test 1: {result}")
 
     # Test case 2
     board = [["a", "b"], ["c", "d"]]
     words = ["abdb"]
-    result = solution.findWords(board, words)
+    result = solution.find_words_standard(board, words)
     print(f"Test 2: {result}")
