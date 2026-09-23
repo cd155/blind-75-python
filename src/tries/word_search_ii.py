@@ -23,9 +23,17 @@ Constraints:
 - board[i][j] is a lowercase English letter.
 - 1 <= words.length <= 3 * 10^4
 """
+from implement_trie_prefix_tree import Trie
 
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.word = None
 
 class Solution:
+    def __init__(self):
+        self.trie = Trie() 
+
     def findWords(self, board, words):
         """
         Find all words from the list that exist in the board.
@@ -40,10 +48,113 @@ class Solution:
         Time Complexity: O(m * n * 4^L) where L is max word length
         Space Complexity: O(k) where k is total characters in words
         """
-        # TODO: Implement solution
-        pass
+        for word in words:
+            self.trie.insert(word)
 
+        words = set(words)
 
+        result = []
+        m = len(board)
+        n = len(board[0])
+
+        def dfs(i, j, visited, path, node):
+            visited.add((i,j))
+            path.append(board[i][j])
+
+            current_word = "".join(path)
+            if current_word in words and current_word not in result:
+                result.append(current_word)
+
+            ds = [(1,0), (0,1), (-1,0), (0,-1)]
+            for d_i, d_j in ds:
+                next_i, next_j = i+d_i, j+d_j
+                if 0<=next_i<m and 0<=next_j<n and (next_i,next_j) not in visited:
+                    if board[next_i][next_j] in node.children:
+                        next_node = node.children[board[next_i][next_j]]
+                        dfs(next_i, next_j, visited, path, next_node)
+
+                        if not next_node.children:
+                            node.children.pop(board[next_i][next_j], None)
+            path.pop()
+            visited.remove((i,j))
+        
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] in self.trie.root.children:
+                    dfs(i, j, set(), [], self.trie.root.children[board[i][j]])
+
+        return result
+
+    def find_all_words(self, board):
+        all_paths = []
+        m = len(board)
+        n = len(board[0])
+
+        def dfs(i, j, visited, path):
+            can_move = False
+            path.append(board[i][j])
+            visited.add((i,j))
+
+            ds = [(1,0), (0,1), (-1,0), (0,-1)]
+
+            for d_i, d_j in ds:
+                next_i, next_j = i+d_i, j+d_j
+                if 0<=next_i<m and 0<=next_j<n and (next_i,next_j) not in visited:
+                    can_move = True
+                    dfs(next_i, next_j, visited, path)
+
+            if not can_move:
+                all_paths.append(list(path))
+
+            path.pop()
+            visited.remove((i,j))
+        
+        for i in range(m):
+            for j in range(n):
+                dfs(i, j, set(), [])
+
+        return all_paths
+
+    def find_words_standard(self, board, words):
+        root = TrieNode()
+        for w in words:
+            node = root
+            for c in w:
+                if c not in node.children:
+                    node.children[c] = TrieNode()
+                node = node.children[c]
+            node.word = w
+
+        result = []
+        m = len(board)
+        n = len(board[0])
+
+        def dfs(i, j, parent_node):
+            char = board[i][j]
+            cur_node = parent_node.children[char]
+
+            if cur_node.word:
+                result.append(cur_node.word)
+                cur_node.word = None
+
+            board[i][j] = '#'
+            ds = [(1,0), (0,1), (-1,0), (0,-1)]
+            for d_i, d_j in ds:
+                next_i, next_j = i+d_i, j+d_j
+                if 0<=next_i<m and 0<=next_j<n and board[next_i][next_j] in cur_node.children:
+                    dfs(next_i, next_j, cur_node)
+            board[i][j] = char
+
+            if not cur_node.children:
+                del parent_node.children[char]
+
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] in root.children:
+                    dfs(i, j, root)
+
+        return result
+    
 # Example usage (for testing locally)
 if __name__ == "__main__":
     solution = Solution()
@@ -51,11 +162,11 @@ if __name__ == "__main__":
     # Test case 1
     board = [["o", "a", "a", "n"], ["e", "t", "a", "e"], ["i", "h", "k", "r"], ["i", "f", "l", "v"]]
     words = ["oath", "pea", "eat", "rain"]
-    result = solution.findWords(board, words)
+    result = solution.find_words_standard(board, words)
     print(f"Test 1: {result}")
 
     # Test case 2
     board = [["a", "b"], ["c", "d"]]
-    words = ["abcb"]
-    result = solution.findWords(board, words)
+    words = ["abdb"]
+    result = solution.find_words_standard(board, words)
     print(f"Test 2: {result}")
