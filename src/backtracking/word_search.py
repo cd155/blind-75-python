@@ -23,7 +23,7 @@ Constraints:
 
 
 class Solution:
-    def exist(self, board, word):
+    def exist(self, board: list[list[str]], word: str) -> bool:
         """
         Search for a word in a 2D board.
 
@@ -47,17 +47,17 @@ class Solution:
                     return True
                 cha = board[i][j]
                 board[i][j] = '#'
-                word_index += 1
                 for di, dj in [(0,1),(1,0),(0,-1),(-1,0)]:
                     next_i, next_j = i + di, j + dj
-                    if 0 <= next_i < m and 0 <= next_j < n and word_index <= max_index:
-                        if dfs(next_i, next_j, word_index):
+                    if 0 <= next_i < m and 0 <= next_j < n:
+                        if dfs(next_i, next_j, word_index + 1):
                             return True
                 board[i][j] = cha
+            return False
 
         for i in range(m):
             for j in range(n):
-                if dfs(i, j, 0):
+                if board[i][j] == word[0] and dfs(i, j, 0):
                     return True
         return False
 
