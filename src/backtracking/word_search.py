@@ -23,7 +23,7 @@ Constraints:
 
 
 class Solution:
-    def exist(self, board, word):
+    def exist(self, board: list[list[str]], word: str) -> bool:
         """
         Search for a word in a 2D board.
 
@@ -37,8 +37,29 @@ class Solution:
         Time Complexity: O(m * n * 4^L) where L is word length
         Space Complexity: O(L) for recursion stack
         """
-        # TODO: Implement solution
-        pass
+        m = len(board)
+        n = len(board[0])
+        max_index = len(word)-1
+
+        def dfs(i,j,word_index):
+            if board[i][j] == word[word_index] and board[i][j] != '#':
+                if word_index == max_index:
+                    return True
+                cha = board[i][j]
+                board[i][j] = '#'
+                for di, dj in [(0,1),(1,0),(0,-1),(-1,0)]:
+                    next_i, next_j = i + di, j + dj
+                    if 0 <= next_i < m and 0 <= next_j < n:
+                        if dfs(next_i, next_j, word_index + 1):
+                            return True
+                board[i][j] = cha
+            return False
+
+        for i in range(m):
+            for j in range(n):
+                if board[i][j] == word[0] and dfs(i, j, 0):
+                    return True
+        return False
 
 
 # Example usage (for testing locally)
@@ -52,3 +73,7 @@ if __name__ == "__main__":
     # Test case 2
     result = solution.exist([["A", "B", "C", "E"], ["S", "F", "C", "S"], ["A", "D", "E", "E"]], "SEE")
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.exist([["A", "B"], ["C", "D"]], "AD")
+    print(f"Test 3: {result}")
