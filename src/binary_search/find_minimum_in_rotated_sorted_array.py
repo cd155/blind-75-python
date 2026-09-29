@@ -37,17 +37,14 @@ class Solution:
         """
         l, r = 0, len(nums)-1
 
-        while r - l > 1:
+        while l < r:
             mid = (r - l) // 2 + l
-            if nums[mid] > nums[l] and nums[mid] > nums[r]:
-                l = mid
+            if nums[mid] > nums[r]:
+                l = mid + 1
             else:
                 r = mid  
 
-        if nums[l] <= nums[r]:
-            return nums[l]
-        else:
-            return nums[r]
+        return nums[l]
 
 
 # Example usage (for testing locally)
