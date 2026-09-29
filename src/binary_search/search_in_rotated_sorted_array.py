@@ -38,8 +38,27 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        l, r = 0, len(nums) - 1
+        while l < r:
+            mid = (r - l) // 2 + l
+
+            # sort in left
+            if nums[l] <= nums[mid]:
+                if nums[l] <= target <= nums[mid]:
+                    r = mid
+                else:
+                    l = mid + 1
+            # sort in right
+            else:
+                if nums[mid] <= target <= nums[r]:
+                    l = mid
+                else:
+                    r = mid - 1
+
+        if target == nums[l]:
+            return l
+        else:
+            return -1
 
 
 # Example usage (for testing locally)
