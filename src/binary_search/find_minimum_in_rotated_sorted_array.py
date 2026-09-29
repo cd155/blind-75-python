@@ -35,8 +35,19 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        l, r = 0, len(nums)-1
+
+        while r - l > 1:
+            mid = (r - l) // 2 + l
+            if nums[mid] > nums[l] and nums[mid] > nums[r]:
+                l = mid
+            else:
+                r = mid  
+
+        if nums[l] <= nums[r]:
+            return nums[l]
+        else:
+            return nums[r]
 
 
 # Example usage (for testing locally)
