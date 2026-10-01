@@ -36,8 +36,26 @@ class Solution:
         Time Complexity: O(?)
         Space Complexity: O(?)
         """
-        # TODO: Implement solution
-        pass
+        dp = []
+        m, n = len(text1), len(text2)
+        for _ in range(m):
+            dp.append([0] * n)
+        
+        for i in range(m):
+            for j in range(n):
+                if text1[i] == text2[j]:
+                    prev = 0
+                    if i-1 >= 0 and j-1 >= 0:
+                        prev = dp[i-1][j-1]
+                    dp[i][j] = 1 + prev
+                else:
+                    max_lcs_1, max_lcs_2 = 0, 0 
+                    if i-1 >= 0:
+                        max_lcs_1 = dp[i-1][j]
+                    if j-1 >= 0:
+                        max_lcs_2 = dp[i][j-1]
+                    dp[i][j] = max(max_lcs_1, max_lcs_2)
+        return dp[m-1][n-1]
 
 
 # Example usage (for testing locally)
@@ -51,3 +69,7 @@ if __name__ == "__main__":
     # Test case 2
     result = solution.longestCommonSubsequence("abc", "abc")
     print(f"Test 2: {result}")
+
+    # Test case 3
+    result = solution.longestCommonSubsequence("cba", "ab")
+    print(f"Test 3: {result}")
